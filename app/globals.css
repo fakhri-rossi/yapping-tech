@@ -67,6 +67,16 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Ensure all buttons, clickable roles, and interactive links have cursor pointer universally across all devices */
+button,
+[role="button"],
+a,
+input[type="submit"],
+input[type="button"],
+input[type="reset"] {
+  cursor: pointer;
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;

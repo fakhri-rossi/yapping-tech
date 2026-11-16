@@ -21,12 +21,14 @@ export const DEFAULT_VISIBILITY: CmsSectionVisibility = {
 export const CLIENT_PREVIEW_DOMAINS: Record<NicheId, string> = {
   patisserie: "mintpatisserie.id",
   florist: "rumahbouquet.id",
+  "nafila-florist": "nafila.florist",
   catering: "glowhouse.id",
 };
 
 export const DEFAULT_WHATSAPP_BY_NICHE: Record<NicheId, string> = {
   patisserie: "628989000160",
   florist: "6285966514774",
+  "nafila-florist": "6282156569916",
   catering: "6281999888790",
 };
 
@@ -129,6 +131,56 @@ export const DEFAULT_REVIEWS_BY_NICHE: Record<NicheId, CmsReviewItem[]> = {
       date: "2 minggu yang lalu",
       review:
         "Budget pas-pasan 100 ribuan tapi pengen kasih buket cantik buat wisuda adik. Adminnya ramah banget ngebantu sesuaikan bunga dan wrapping-nya biar tetep keliatan mewah. Terima kasih Rumah Bouquet!",
+    },
+  ],
+  "nafila-florist": [
+    {
+      id: "nf-rev-1",
+      category: "holo",
+      name: "Dinda Salsabila",
+      location: "Mijen, Semarang",
+      avatar: "DS",
+      stars: 5,
+      tag: "Buket Hologram Pink · Instant Delivery",
+      date: "1 hari yang lalu",
+      review:
+        "Buket hologramnya cantik banget gila! Kertas hologramnya mewah berkilau kalo kena cahaya lampu/matahari, bunganya rapi banget. Temenku yang ultah seneng banget pas nerima. Recommended banget Nafila Florist!",
+    },
+    {
+      id: "nf-rev-2",
+      category: "fairytopia",
+      name: "Nabila Maharani",
+      location: "BSB City, Semarang",
+      avatar: "NM",
+      stars: 5,
+      tag: "Fairytopia Fantasy Series · Pre-Order",
+      date: "3 hari yang lalu",
+      review:
+        "Seri Fairytopia beneran kayak buket negeri dongeng! Detail kupu-kupu dan kombinasi warnanya estetik parah. Admin TikTok & WA-nya juga ramah dan komunikatif banget.",
+    },
+    {
+      id: "nf-rev-3",
+      category: "boneka",
+      name: "Rizky Ramadhan",
+      location: "Ngaliyan, Semarang",
+      avatar: "RR",
+      stars: 5,
+      tag: "Buket Boneka Karakter · Same-Day Delivery",
+      date: "5 hari yang lalu",
+      review:
+        "Order buket boneka buat wisuda pacar, hasilnya memuaskan banget. Bonekanya lucu dan kualitas bunganya bagus. Proses pembuatan cepet dan packing super aman sampai tujuan tanpa lecek.",
+    },
+    {
+      id: "nf-rev-4",
+      category: "guru",
+      name: "Ibu Ratna Dewi",
+      location: "Semarang Barat",
+      avatar: "RD",
+      stars: 5,
+      tag: "Kado Hari Guru Signature · Order Kolektif",
+      date: "1 minggu yang lalu",
+      review:
+        "Pesan buket kado Hari Guru bareng wali murid lain untuk guru-guru di sekolah. Semuanya suka banget! Elegan, rapi, dan harganya sangat bersahabat untuk kualitas seindah ini.",
     },
   ],
   catering: [
@@ -289,6 +341,24 @@ export const PRESET_IMAGES: AssetImageItem[] = [
   { label: "Fresh Red Roses", src: "/images/florist/fresh-rose.jpg", category: "florist" },
   { label: "Sunflower Bouquet", src: "/images/florist/sunflower.jpg", category: "florist" },
   { label: "Strawberry Snack Bouquet", src: "/images/florist/snack-fruit.jpg", category: "florist" },
+  // Nafila Florist
+  { label: "Nafila Signature Hero", src: "/images/florist/nafila-florist/hero.jpg", category: "nafila-florist" },
+  { label: "Pink Hologram Bouquet", src: "/images/florist/nafila-florist/pinkholo.png", category: "nafila-florist" },
+  { label: "Ocean Blue Hologram", src: "/images/florist/nafila-florist/blueholonew.jpg", category: "nafila-florist" },
+  { label: "Ocean Blue Holo Detail 2", src: "/images/florist/nafila-florist/blueholonew2.jpg", category: "nafila-florist" },
+  { label: "Ocean Blue Holo Detail 3", src: "/images/florist/nafila-florist/blueholonew3.jpg", category: "nafila-florist" },
+  { label: "Midnight Black Hologram", src: "/images/florist/nafila-florist/blackholo.png", category: "nafila-florist" },
+  { label: "Fairytopia Fantasy Bouquet", src: "/images/florist/nafila-florist/fairytopia.png", category: "nafila-florist" },
+  { label: "Thumbelina Floral Bouquet", src: "/images/florist/nafila-florist/thumbelina.png", category: "nafila-florist" },
+  { label: "Buket Boneka Wisuda Teddy", src: "/images/florist/nafila-florist/boneka_bucket_1.png", category: "nafila-florist" },
+  { label: "Buket Karakter Boneka Cute", src: "/images/florist/nafila-florist/boneka_bucket_2.png", category: "nafila-florist" },
+  { label: "Kado Hari Guru Signature", src: "/images/florist/nafila-florist/kado-hari-guru-1.png", category: "nafila-florist" },
+  { label: "Buket Trophy Hari Guru", src: "/images/florist/nafila-florist/kado-hari-guru-2.png", category: "nafila-florist" },
+  { label: "Buket Mini Hari Guru", src: "/images/florist/nafila-florist/kado-hari-guru-3.png", category: "nafila-florist" },
+  { label: "Lavender Purple Hologram", src: "/images/florist/nafila-florist/purpleholo.png", category: "nafila-florist" },
+  { label: "Emerald Green Hologram", src: "/images/florist/nafila-florist/greenholo.png", category: "nafila-florist" },
+  { label: "Ruby Red Hologram", src: "/images/florist/nafila-florist/redholo.png", category: "nafila-florist" },
+  { label: "Golden Sunset Yellow Holo", src: "/images/florist/nafila-florist/yellowholo.png", category: "nafila-florist" },
   // Catering
   { label: "Healthy Bento Hero", src: "/images/catering/hero.jpg", category: "catering" },
   { label: "Slim Diet Package", src: "/images/catering/slim-package.jpg", category: "catering" },

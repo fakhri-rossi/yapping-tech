@@ -20,10 +20,9 @@ export const metadata: Metadata = {
     icon: [
       { url: "/favicon-komose.png", type: "image/png" },
       { url: "/favicon-komose.svg", type: "image/svg+xml" },
-      { url: "/images/komose/komose-app-icon.png", type: "image/png" },
     ],
     apple: [
-      { url: "/images/komose/komose-app-icon.png" },
+      { url: "/favicon-komose.png" },
     ],
   },
 };

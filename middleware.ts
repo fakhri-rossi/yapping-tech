@@ -23,6 +23,8 @@ export const CLIENT_DOMAINS: Record<string, string> = {
   "patisserie.komose.id": "patisserie",
   "rotimomoh.komose.id": "patisserie",
   "florist.komose.id": "florist",
+  "nafila.komose.id": "nafila-florist",
+  "nafilaflorist.komose.id": "nafila-florist",
   "catering.komose.id": "catering",
 
   // Local testing & preview subdomains (bisa langsung dicoba di browser):
@@ -30,6 +32,7 @@ export const CLIENT_DOMAINS: Record<string, string> = {
   "bakery.localhost:3000": "patisserie",
   "rotimomoh.localhost:3000": "patisserie",
   "florist.localhost:3000": "florist",
+  "nafila.localhost:3000": "nafila-florist",
   "catering.localhost:3000": "catering",
 
   // Production subdomains preview (legacy):

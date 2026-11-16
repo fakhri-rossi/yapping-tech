@@ -73,7 +73,7 @@ export function TemplatesCatalogClient() {
 
       {/* Template Cards Grid */}
       <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
-        <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
           {NICHES.map((niche) => {
             const cmsTitle = getManagementSystemTitle(niche.brand);
             const planLabel = wantsCms

@@ -1,4 +1,4 @@
-export type NicheId = "patisserie" | "florist" | "catering";
+export type NicheId = "patisserie" | "florist" | "catering" | "nafila-florist";
 
 export type TemplateMode = "retail" | "bouquet" | "catering";
 
@@ -134,6 +134,9 @@ export interface FooterConfig {
   email: string;
   phone: string;
   instagram: string;
+  tiktok?: string;
+  shopee?: string;
+  tokopedia?: string;
   note: string;
 }
 
@@ -208,7 +211,11 @@ export interface CartItem {
 export interface NicheFormState {
   fullName: string;
   whatsapp: string;
+  province?: string;
+  city?: string;
   district: string;
+  subdistrict?: string;
+  postalCode?: string;
   address: string;
   batchDate?: string;
   chilledAck?: boolean;

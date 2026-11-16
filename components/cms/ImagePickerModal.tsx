@@ -117,7 +117,8 @@ export function ImagePickerModal({
               [
                 { id: "all", label: "Semua Aset" },
                 { id: "patisserie", label: "🎂 Patisserie" },
-                { id: "florist", label: "💐 Florist" },
+                { id: "florist", label: "💐 Rumah Bouquet" },
+                { id: "nafila-florist", label: "🌸 Nafila Florist" },
                 { id: "catering", label: "🥗 Catering" },
               ] as const
             ).map((tab) => (

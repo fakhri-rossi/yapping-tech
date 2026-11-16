@@ -107,21 +107,25 @@ function AddButton({
   label,
   radius,
   full,
+  disabled,
 }: {
   onClick: () => void;
   added: boolean;
   label: string;
   radius: string;
   full?: boolean;
+  disabled?: boolean;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
+      disabled={disabled}
       className={cn(
         "group/add flex h-10 items-center justify-center gap-2 px-4 font-ui text-[10px] font-semibold uppercase tracking-[0.14em] transition-all duration-300",
         radius,
         full && "w-full",
+        disabled && "opacity-40 cursor-not-allowed hover:opacity-40",
       )}
       style={{
         backgroundColor: added ? "var(--text)" : "var(--accent)",
@@ -188,24 +192,28 @@ export function ProductCard({
 }: ProductCardProps) {
   const { activeNiche, addToCart } = useShowcase();
   const { mode, theme } = activeNiche;
-  const [localQty, setLocalQty] = useState(product.minQty);
+  const [localQty, setLocalQty] = useState(0);
   const [showCard, setShowCard] = useState(false);
   const { added, flash } = useAddedFlash();
 
   const quantity =
-    mode === "catering" ? (pax ?? product.minQty) : localQty;
+    mode === "catering" ? (pax ?? 0) : localQty;
   const total = quantity * product.price;
 
   const handleQuantity = (next: number) => {
     if (mode === "catering") {
-      onPaxChange?.(Math.max(product.minQty, next));
+      onPaxChange?.(Math.max(0, next));
     } else {
-      setLocalQty(Math.max(product.minQty, next));
+      setLocalQty(Math.max(0, next));
     }
   };
 
   const handleAdd = () => {
-    addToCart(product, quantity);
+    const qtyToAdd = quantity > 0 ? quantity : (product.minQty || 1);
+    if (quantity === 0) {
+      handleQuantity(qtyToAdd);
+    }
+    addToCart(product, qtyToAdd);
     flash();
   };
 
@@ -306,7 +314,7 @@ export function ProductCard({
           <div className="mt-auto flex items-center justify-between gap-2 pt-4">
             <Stepper
               value={quantity}
-              min={product.minQty}
+              min={0}
               step={product.step}
               onChange={handleQuantity}
               radius="rounded-full"
@@ -478,7 +486,7 @@ export function ProductCard({
           <div className="mt-auto flex items-center justify-between gap-2 pt-4">
             <Stepper
               value={quantity}
-              min={product.minQty}
+              min={0}
               step={product.step}
               onChange={handleQuantity}
               radius="rounded-full"

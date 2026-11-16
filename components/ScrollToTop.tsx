@@ -44,11 +44,11 @@ export function ScrollToTop() {
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           aria-label="Kembali ke atas"
-          className="group fixed bottom-24 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-line bg-surface text-ink shadow-lg shadow-black/5 backdrop-blur-md transition-colors duration-300 sm:right-7"
+          className="group fixed bottom-28 sm:bottom-24 right-4 sm:right-7 z-20 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-line bg-surface text-ink shadow-lg shadow-black/5 backdrop-blur-md transition-colors duration-300"
         >
           <svg
             viewBox="0 0 48 48"
-            className="absolute inset-0 h-12 w-12 -rotate-90"
+            className="absolute inset-0 h-10 w-10 sm:h-12 sm:w-12 -rotate-90"
             aria-hidden="true"
           >
             <circle

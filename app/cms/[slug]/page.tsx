@@ -32,6 +32,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${systemTitle} — Live CMS Dashboard | Yapping Techflow`,
     description: `Kelola katalog produk, harga, banner promo, dan WhatsApp ${niche.brand} secara instan dengan Live Preview melalui ${systemTitle}.`,
+    icons: {
+      icon: [
+        { url: `/favicon-${slug}.png`, type: "image/png" },
+        { url: `/favicon-${slug}.svg`, type: "image/svg+xml" },
+        { url: niche.logo || `/favicon-${slug}.png` },
+      ],
+      apple: [
+        { url: `/favicon-${slug}.png` },
+      ],
+    },
   };
 }
 

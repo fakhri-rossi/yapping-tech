@@ -77,7 +77,7 @@ export function DemoControlDock() {
                 aria-selected={isActive}
                 aria-label={niche.dock.label}
                 onClick={() => handleTabClick(niche.id)}
-                className={`relative flex items-center justify-center rounded-full px-3 py-1.5 text-xs transition-colors ${
+                className={`relative flex items-center justify-center rounded-full px-3 py-1.5 text-xs transition-colors cursor-pointer ${
                   isActive ? "text-stone-950 font-bold" : "text-stone-600 hover:text-stone-900"
                 }`}
               >
@@ -120,7 +120,7 @@ export function DemoControlDock() {
           <Link
             href={`/cms/${activeId}`}
             title={`Buka ${activeNiche.brand} Management System`}
-            className="flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-800 transition-all hover:bg-emerald-600 hover:text-white hover:border-emerald-600"
+            className="flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-800 transition-all hover:bg-emerald-600 hover:text-white hover:border-emerald-600 cursor-pointer"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <span className="hidden md:inline">Buka CMS</span>
@@ -132,7 +132,7 @@ export function DemoControlDock() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Pesan website ini via WhatsApp"
-            className="group flex items-center gap-1 rounded-full bg-stone-950 px-3.5 py-1.5 text-xs font-semibold text-white transition-all hover:bg-stone-800 shadow-sm"
+            className="group flex items-center gap-1 rounded-full bg-stone-950 px-3.5 py-1.5 text-xs font-semibold text-white transition-all hover:bg-stone-800 shadow-sm cursor-pointer"
           >
             <span className="hidden md:inline">Pesan Web Ini</span>
             <span className="md:hidden">Pesan</span>

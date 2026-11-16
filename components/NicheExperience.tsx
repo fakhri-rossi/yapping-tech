@@ -22,7 +22,7 @@ export function NicheExperience() {
         className="font-body text-ink"
       >
         {activeNiche.id === "patisserie" && <PatisserieExperience />}
-        {activeNiche.id === "florist" && <FloristExperience />}
+        {(activeNiche.id === "florist" || activeNiche.id === "nafila-florist" || activeNiche.mode === "bouquet") && <FloristExperience />}
         {activeNiche.id === "catering" && <CateringExperience />}
       </motion.div>
     </AnimatePresence>

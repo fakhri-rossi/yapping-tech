@@ -20,6 +20,9 @@ export function SiteFooter() {
   const brandHref = `https://wa.me/${clientWaPhone}?text=${encodeURIComponent(
     `Halo ${brand}, saya ingin berdiskusi mengenai kebutuhan saya.`,
   )}`;
+  const instagramHref = footer.instagram.startsWith("http")
+    ? footer.instagram
+    : `https://instagram.com/${footer.instagram.replace(/^@/, "")}`;
 
   return (
     <footer className="border-t border-line">
@@ -65,12 +68,15 @@ export function SiteFooter() {
               <button
                 type="button"
                 onClick={() => {
-                  document
-                    .getElementById("collection")
-                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  const target =
+                    document.getElementById("order-form") ||
+                    document.getElementById("categories") ||
+                    document.getElementById("collection") ||
+                    document.getElementById("menu");
+                  target?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
                 className={cn(
-                  "inline-flex items-center gap-2 px-7 py-3.5 text-[10px] font-semibold uppercase tracking-[0.16em] transition-transform duration-300 hover:scale-[1.02]",
+                  "inline-flex items-center gap-2 px-7 py-3.5 text-[10px] font-semibold uppercase tracking-[0.16em] transition-transform duration-300 hover:scale-[1.02] cursor-pointer",
                   mode === "catering"
                     ? "rounded-none font-grotesk"
                     : "rounded-full font-ui",
@@ -95,7 +101,7 @@ export function SiteFooter() {
                 type="button"
                 onClick={openCart}
                 className={cn(
-                  "inline-flex items-center gap-2 border border-line px-6 py-3.5 text-[10px] uppercase text-ink transition-colors duration-300 hover:border-[var(--accent)]",
+                  "inline-flex items-center gap-2 border border-line px-6 py-3.5 text-[10px] uppercase text-ink transition-colors duration-300 hover:border-[var(--accent)] cursor-pointer",
                   mode === "catering"
                     ? "rounded-none font-grotesk tracking-[0.16em]"
                     : "rounded-full font-ui tracking-[0.16em]",
@@ -142,23 +148,62 @@ export function SiteFooter() {
             <p className="mt-4 max-w-[320px] font-body text-[11.5px] leading-[1.85] text-muted">
               {footer.tagline}
             </p>
-            <a
-              href={brandHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 font-ui text-[9px] uppercase tracking-[0.16em] text-ink transition-colors hover:text-accent"
-            >
-              {footer.instagram}
-              <svg viewBox="0 0 14 14" fill="none" className="h-3 w-3" aria-hidden="true">
-                <path
-                  d="M4 10 10 4M10 4H5M10 4v5"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+            <div className="mt-5 flex items-center gap-3.5">
+              <a
+                href={instagramHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Instagram"
+                aria-label="Instagram"
+                className="relative h-7 w-7 transition-transform hover:scale-110 active:scale-95"
+              >
+                <Image
+                  src="/images/logo/instagram-official.png"
+                  alt="Instagram"
+                  fill
+                  unoptimized
+                  className="object-contain"
                 />
-              </svg>
-            </a>
+              </a>
+
+              {footer.tiktok && (
+                <a
+                  href={footer.tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="TikTok Shop"
+                  aria-label="TikTok Shop"
+                  className="relative h-7 w-7 transition-transform hover:scale-110 active:scale-95"
+                >
+                  <Image
+                    src="/images/logo/tiktok-official.png"
+                    alt="TikTok Shop"
+                    fill
+                    unoptimized
+                    className="object-contain"
+                  />
+                </a>
+              )}
+
+              {footer.shopee && (
+                <a
+                  href={footer.shopee}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Shopee"
+                  aria-label="Shopee"
+                  className="relative h-7 w-7 transition-transform hover:scale-110 active:scale-95"
+                >
+                  <Image
+                    src="/images/logo/shopee-bag.svg"
+                    alt="Shopee"
+                    fill
+                    unoptimized
+                    className="object-contain"
+                  />
+                </a>
+              )}
+            </div>
           </div>
 
           <div className="lg:col-span-3">
@@ -207,7 +252,7 @@ export function SiteFooter() {
           <p className="font-ui text-[8px] uppercase tracking-[0.14em] text-muted">
             © 2026 {brand} · Demo landing page
           </p>
-          <a
+          {/* <a
             href={developerHref}
             target="_blank"
             rel="noopener noreferrer"
@@ -228,7 +273,7 @@ export function SiteFooter() {
                 strokeLinejoin="round"
               />
             </svg>
-          </a>
+          </a> */}
         </div>
       </div>
     </footer>

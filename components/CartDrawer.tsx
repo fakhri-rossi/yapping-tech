@@ -24,9 +24,7 @@ function buildOrderMessage(
   form: NicheFormState,
 ): string {
   const lines: string[] = [];
-  const district =
-    DISTRICTS.find((option) => option.value === form.district)?.label ??
-    form.district;
+  const isNafila = niche.id === "nafila-florist";
 
   lines.push(`Halo ${niche.brand}, saya ingin melakukan pemesanan melalui website.`);
   lines.push("");
@@ -45,11 +43,22 @@ function buildOrderMessage(
   lines.push(`Subtotal: ${formatIDR(subtotal)}`);
   lines.push("(Belum termasuk ongkos kirim)");
   lines.push("");
-  lines.push("— DATA PEMESAN —");
+  lines.push("— DATA PEMESAN & TUJUAN PENGIRIMAN —");
   lines.push(`Nama lengkap: ${form.fullName}`);
   lines.push(`WhatsApp: ${form.whatsapp}`);
-  lines.push(`Kecamatan: ${district}`);
-  lines.push(`Alamat: ${form.address}`);
+  if (isNafila) {
+    if (form.province) lines.push(`Provinsi: ${form.province}`);
+    if (form.city) lines.push(`Kota/Kabupaten: ${form.city}`);
+    if (form.district) lines.push(`Kecamatan: ${form.district}`);
+    if (form.subdistrict) lines.push(`Kelurahan/Desa: ${form.subdistrict}`);
+    if (form.postalCode) lines.push(`Kode Pos: ${form.postalCode}`);
+  } else {
+    const district =
+      DISTRICTS.find((option) => option.value === form.district)?.label ??
+      form.district;
+    lines.push(`Kecamatan / Area: ${district}`);
+  }
+  lines.push(`Alamat Lengkap: ${form.address}`);
 
   if (niche.mode === "retail") {
     lines.push("");
@@ -62,14 +71,11 @@ function buildOrderMessage(
 
   if (niche.mode === "bouquet") {
     lines.push("");
-    lines.push("— DETAIL PENGIRIMAN BUNGA —");
-    lines.push(`Tanggal kirim: ${formatDateID(form.deliveryDate ?? "")}`);
-    lines.push(`Jendela waktu: ${form.deliveryWindow || "-"}`);
-    lines.push(`Nama pengirim: ${form.senderName}`);
-    lines.push(`Nama penerima: ${form.recipientName}`);
-    lines.push(
-      `Pesan kartu: ${form.giftMessage?.trim() ? `"${form.giftMessage.trim()}"` : "Tanpa pesan"}`,
-    );
+    lines.push("— KETERANGAN PENGIRIMAN BUNGA —");
+    lines.push("Detail ongkos kirim, jadwal & kurir pengiriman akan dikonfirmasi langsung bersama admin melalui WhatsApp.");
+    if (form.giftMessage?.trim()) {
+      lines.push(`Pesan kartu ucapan: "${form.giftMessage.trim()}"`);
+    }
   }
 
   if (niche.mode === "catering") {
@@ -260,6 +266,8 @@ function CheckoutForm({
     setSent(false);
   };
 
+  const isNafila = niche.id === "nafila-florist";
+
   const validate = (): FormErrors => {
     const next: FormErrors = {};
     if (form.fullName.trim().length < 2) {
@@ -268,8 +276,23 @@ function CheckoutForm({
     if (!/^[0-9+\s-]{9,17}$/.test(form.whatsapp.trim())) {
       next.whatsapp = "Nomor WhatsApp belum valid.";
     }
-    if (!form.district) {
-      next.district = "Pilih kecamatan pengiriman.";
+    if (isNafila) {
+      if (!form.province?.trim()) {
+        next.province = "Mohon isi provinsi tujuan.";
+      }
+      if (!form.city?.trim()) {
+        next.city = "Mohon isi kota/kabupaten tujuan.";
+      }
+      if (!form.district?.trim()) {
+        next.district = "Mohon isi kecamatan tujuan.";
+      }
+      if (!form.subdistrict?.trim()) {
+        next.subdistrict = "Mohon isi kelurahan/desa.";
+      }
+    } else {
+      if (!form.district) {
+        next.district = "Pilih area pengiriman.";
+      }
     }
     if (form.address.trim().length < 10) {
       next.address = "Mohon isi alamat lengkap (min. 10 karakter).";
@@ -280,13 +303,6 @@ function CheckoutForm({
       if (!form.chilledAck) {
         next.chilledAck = "Mohon setujui catatan pengiriman dingin.";
       }
-    }
-
-    if (mode === "bouquet") {
-      if (!form.deliveryDate) next.deliveryDate = "Pilih tanggal pengiriman.";
-      if (!form.deliveryWindow) next.deliveryWindow = "Pilih jendela waktu.";
-      if (!form.senderName?.trim()) next.senderName = "Isi nama pengirim.";
-      if (!form.recipientName?.trim()) next.recipientName = "Isi nama penerima.";
     }
 
     if (mode === "catering") {
@@ -355,53 +371,132 @@ function CheckoutForm({
             />
           </Field>
 
-          <Field
-            label="Kecamatan pengiriman"
-            error={errors.district}
-            className="sm:col-span-2"
-          >
-            <div className="relative">
-              <select
+          {isNafila ? (
+            <>
+              <Field label="Provinsi" error={errors.province}>
+                <input
+                  type="text"
+                  value={form.province ?? ""}
+                  onChange={(event) => setField("province", event.target.value)}
+                  placeholder="Contoh: Jawa Tengah"
+                  className={inputClass}
+                  aria-invalid={Boolean(errors.province)}
+                />
+              </Field>
+
+              <Field label="Kota / Kabupaten" error={errors.city}>
+                <input
+                  type="text"
+                  value={form.city ?? ""}
+                  onChange={(event) => setField("city", event.target.value)}
+                  placeholder="Contoh: Kota Semarang"
+                  className={inputClass}
+                  aria-invalid={Boolean(errors.city)}
+                />
+              </Field>
+
+              <Field label="Kecamatan" error={errors.district}>
+                <input
+                  type="text"
+                  value={form.district ?? ""}
+                  onChange={(event) => setField("district", event.target.value)}
+                  placeholder="Contoh: Mijen"
+                  className={inputClass}
+                  aria-invalid={Boolean(errors.district)}
+                />
+              </Field>
+
+              <div className="grid grid-cols-2 gap-2">
+                <Field label="Kelurahan / Desa" error={errors.subdistrict}>
+                  <input
+                    type="text"
+                    value={form.subdistrict ?? ""}
+                    onChange={(event) => setField("subdistrict", event.target.value)}
+                    placeholder="Contoh: Pesantren"
+                    className={inputClass}
+                    aria-invalid={Boolean(errors.subdistrict)}
+                  />
+                </Field>
+
+                <Field label="Kode Pos" hint="Opsional">
+                  <input
+                    type="text"
+                    value={form.postalCode ?? ""}
+                    onChange={(event) => setField("postalCode", event.target.value)}
+                    placeholder="Contoh: 50212"
+                    className={inputClass}
+                  />
+                </Field>
+              </div>
+            </>
+          ) : DISTRICTS.length > 0 ? (
+            <Field
+              label="Kecamatan / Area Pengiriman"
+              error={errors.district}
+              className="sm:col-span-2"
+            >
+              <div className="relative">
+                <select
+                  value={form.district}
+                  onChange={(event) => setField("district", event.target.value)}
+                  className={cn(inputClass, "appearance-none pr-9")}
+                  aria-invalid={Boolean(errors.district)}
+                >
+                  <option value="">Pilih Area Pengiriman</option>
+                  {DISTRICTS.map((district) => (
+                    <option key={district.value} value={district.value}>
+                      {district.label}
+                    </option>
+                  ))}
+                </select>
+                <svg
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  className="pointer-events-none absolute right-3 top-1/2 h-2.5 w-2.5 -translate-y-1/2 text-muted"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2 4.5 6 8.5l4-4"
+                    stroke="currentColor"
+                    strokeWidth="1.1"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            </Field>
+          ) : (
+            <Field
+              label="Kecamatan / Kota Pengiriman"
+              error={errors.district}
+              className="sm:col-span-2"
+            >
+              <input
+                type="text"
                 value={form.district}
                 onChange={(event) => setField("district", event.target.value)}
-                className={cn(inputClass, "appearance-none pr-9")}
+                placeholder="Contoh: Mijen, Semarang Barat, Kebayoran, dll"
+                className={inputClass}
                 aria-invalid={Boolean(errors.district)}
-              >
-                <option value="">Pilih Jakarta &amp; Bodetabek</option>
-                {DISTRICTS.map((district) => (
-                  <option key={district.value} value={district.value}>
-                    {district.label}
-                  </option>
-                ))}
-              </select>
-              <svg
-                viewBox="0 0 12 12"
-                fill="none"
-                className="pointer-events-none absolute right-3 top-1/2 h-2.5 w-2.5 -translate-y-1/2 text-muted"
-                aria-hidden="true"
-              >
-                <path
-                  d="M2 4.5 6 8.5l4-4"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-          </Field>
+              />
+            </Field>
+          )}
 
           <Field
-            label="Alamat lengkap"
+            label="Alamat lengkap detail"
             error={errors.address}
             className="sm:col-span-2"
-            hint="Jalan, nomor, patokan"
+            hint="Jalan, nomor rumah, RT/RW, patokan"
           >
             <textarea
               value={form.address}
               onChange={(event) => setField("address", event.target.value)}
               rows={2}
-              placeholder="Contoh: Jl. Senopati No. 18, patokan seberang taman"
+              placeholder={
+                isNafila
+                  ? "Contoh: Jl. BSB Boulevard No. 12, Perum Graha Candi Blok A2/10, patokan samping masjid"
+                  : "Contoh: Jl. Senopati No. 18, patokan seberang taman"
+              }
               className={cn(inputClass, "resize-none")}
               autoComplete="street-address"
               aria-invalid={Boolean(errors.address)}
@@ -462,80 +557,28 @@ function CheckoutForm({
         <div className="mt-5 border-t border-line pt-5">
           <div className="flex items-center gap-2">
             <span className="font-ui text-[8px] font-semibold uppercase tracking-[0.22em] text-ink">
-              Detail pengiriman bunga
+              Informasi Pengiriman &amp; Kartu Ucapan
             </span>
             <span className="h-px flex-1 bg-[var(--border)]" />
           </div>
 
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <Field label="Tanggal kirim" error={errors.deliveryDate}>
-              <input
-                type="date"
-                value={form.deliveryDate ?? ""}
-                min={todayISO(0)}
-                onChange={(event) => setField("deliveryDate", event.target.value)}
-                className={cn(inputClass, "[color-scheme:light]")}
-                aria-invalid={Boolean(errors.deliveryDate)}
-              />
-            </Field>
-
-            <Field label="Jendela waktu" error={errors.deliveryWindow}>
-              <div className="relative">
-                <select
-                  value={form.deliveryWindow ?? ""}
-                  onChange={(event) => setField("deliveryWindow", event.target.value)}
-                  className={cn(inputClass, "appearance-none pr-9")}
-                  aria-invalid={Boolean(errors.deliveryWindow)}
-                >
-                  <option value="">Pilih waktu</option>
-                  {WINDOWS.map((window) => (
-                    <option key={window} value={window}>
-                      {window}
-                    </option>
-                  ))}
-                </select>
-                <svg
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  className="pointer-events-none absolute right-3 top-1/2 h-2.5 w-2.5 -translate-y-1/2 text-muted"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M2 4.5 6 8.5l4-4"
-                    stroke="currentColor"
-                    strokeWidth="1.1"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+          <div className="mt-4 grid grid-cols-1 gap-4">
+            <div className="rounded-xl border border-line bg-canvas/70 p-4">
+              <div className="flex items-start gap-2.5">
+                <span className="mt-0.5 text-accent">ℹ️</span>
+                <div>
+                  <h5 className="font-ui text-[9px] font-bold uppercase tracking-[0.16em] text-ink">
+                    Pengiriman Dikonfirmasi Lewat Admin WA
+                  </h5>
+                  <p className="mt-1 font-body text-[11.5px] leading-relaxed text-muted">
+                    Setelah mengisi form alamat ini dan klik tombol order, detail jadwal kirim, pilihan ekspedisi/kurir instan, serta pengecekan ongkos kirim akan langsung diinformasikan dan dikonfirmasi oleh admin via WhatsApp.
+                  </p>
+                </div>
               </div>
-            </Field>
-
-            <Field label="Nama pengirim" error={errors.senderName}>
-              <input
-                type="text"
-                value={form.senderName ?? ""}
-                onChange={(event) => setField("senderName", event.target.value)}
-                placeholder="Nama Anda"
-                className={inputClass}
-                aria-invalid={Boolean(errors.senderName)}
-              />
-            </Field>
-
-            <Field label="Nama penerima" error={errors.recipientName}>
-              <input
-                type="text"
-                value={form.recipientName ?? ""}
-                onChange={(event) => setField("recipientName", event.target.value)}
-                placeholder="Nama penerima"
-                className={inputClass}
-                aria-invalid={Boolean(errors.recipientName)}
-              />
-            </Field>
+            </div>
 
             <Field
-              label="Pesan kartu"
-              className="sm:col-span-2"
+              label="Pesan Kartu Ucapan (Free)"
               hint={`${form.giftMessage?.length ?? 0}/250`}
             >
               <textarea
@@ -543,17 +586,13 @@ function CheckoutForm({
                 onChange={(event) =>
                   setField("giftMessage", event.target.value.slice(0, 250))
                 }
-                rows={3}
+                rows={2}
                 maxLength={250}
-                placeholder="Tulis pesan yang akan ditulis tangan oleh tim atelier…"
+                placeholder="Tulis pesan singkat untuk kartu ucapan (opsional)…"
                 className={cn(inputClass, "resize-none")}
               />
             </Field>
           </div>
-
-          <p className="mt-3 font-body text-[10px] leading-relaxed text-muted">
-            {niche.form.deliveryNote}
-          </p>
         </div>
       )}
 
@@ -777,7 +816,7 @@ export function CartDrawer() {
                 onClick={closeCart}
                 aria-label="Tutup keranjang"
                 className={cn(
-                  "flex h-9 w-9 shrink-0 items-center justify-center border border-line text-ink transition-colors hover:border-[var(--accent)]",
+                  "flex h-9 w-9 shrink-0 items-center justify-center border border-line text-ink transition-colors hover:border-[var(--accent)] cursor-pointer",
                   mode === "catering" ? "rounded-none" : "rounded-full",
                 )}
               >
@@ -824,12 +863,14 @@ export function CartDrawer() {
                   type="button"
                   onClick={() => {
                     closeCart();
-                    document
-                      .getElementById("collection")
-                      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    const target =
+                      document.getElementById("order-form") ??
+                      document.getElementById("categories") ??
+                      document.getElementById("collection");
+                    target?.scrollIntoView({ behavior: "smooth", block: "start" });
                   }}
                   className={cn(
-                    "mt-5 px-6 py-2.5 font-ui text-[10px] font-semibold uppercase tracking-[0.16em]",
+                    "mt-5 px-6 py-2.5 font-ui text-[10px] font-semibold uppercase tracking-[0.16em] cursor-pointer",
                     mode === "catering" ? "rounded-none" : "rounded-full",
                   )}
                   style={{
@@ -837,7 +878,7 @@ export function CartDrawer() {
                     color: theme.accentContrast,
                   }}
                 >
-                  Pilih Menu Sekarang
+                  Pilih Menu / Isi Form
                 </button>
               </div>
             ) : (
@@ -892,7 +933,7 @@ export function CartDrawer() {
                     type="submit"
                     form="checkout-form"
                     className={cn(
-                      "group mt-3 flex w-full items-center justify-center gap-2 py-4 font-ui text-[10px] font-semibold uppercase tracking-[0.18em] transition-all duration-300 hover:opacity-90",
+                      "group mt-3 flex w-full items-center justify-center gap-2 py-4 font-ui text-[10px] font-semibold uppercase tracking-[0.18em] transition-all duration-300 hover:opacity-90 cursor-pointer",
                       mode === "catering" ? "rounded-none" : "rounded-full",
                     )}
                     style={{
@@ -916,9 +957,6 @@ export function CartDrawer() {
                       />
                     </svg>
                   </button>
-                  <p className="mt-2 text-center font-body text-[8.5px] uppercase tracking-[0.12em] text-muted">
-                    Dibalas tim {activeNiche.brand.split(" ")[0]} · rata-rata 15 menit
-                  </p>
                 </footer>
               </>
             )}

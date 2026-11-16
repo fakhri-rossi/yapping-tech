@@ -37,6 +37,12 @@ const NICHE_LAYMAN_META: Record<
     audience: "Florist Bunga Segar, Buket Wisuda & Papan Acara",
     benefit: "Pilihan warna bunga, jenis wrapping, & kartu ucapan tertera jelas — pembeli tinggal klik checkout ke WA.",
   },
+  "nafila-florist": {
+    title: "Buket Hologram & Boneka",
+    domainPreview: "nafila.komose.id",
+    audience: "Nafila Florist · BSB Mijen Semarang · TikTok & Shopee Ready",
+    benefit: "Pilihan 7 warna wrapping hologram, boneka wisuda, trophy flowers & kado hari guru lengkap checkout langsung ke WhatsApp.",
+  },
   catering: {
     title: "Katering Harian & Nasi Box",
     domainPreview: "dapurrasa.komose.id",
@@ -189,8 +195,8 @@ export function KomoseClientAndTemplatesShowcase() {
             </Link>
           </div>
 
-          {/* 3 Interactive Cards */}
-          <div className="mt-7 grid gap-5 md:grid-cols-3">
+          {/* Interactive Cards */}
+          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {NICHES.map((niche) => {
               const meta = NICHE_LAYMAN_META[niche.id];
               const isSelected = selectedId === niche.id;

@@ -48,6 +48,7 @@ const emptyCarts: CartMap = {
   patisserie: [],
   florist: [],
   catering: [],
+  "nafila-florist": [],
 };
 
 interface ShowcaseContextValue {

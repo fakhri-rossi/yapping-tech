@@ -67,7 +67,7 @@ export function FaqAccordion() {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
-              "mt-5 inline-flex items-center gap-2 border border-line bg-surface px-5 py-3 text-[9px] uppercase text-ink transition-colors duration-300 hover:border-[var(--accent)]",
+              "mt-5 inline-flex items-center gap-2 border border-line bg-surface px-5 py-3 text-[9px] uppercase text-ink transition-colors duration-300 hover:border-[var(--accent)] cursor-pointer",
               mode === "catering"
                 ? "rounded-none font-grotesk tracking-[0.16em]"
                 : "rounded-full font-ui tracking-[0.16em]",
@@ -96,7 +96,7 @@ export function FaqAccordion() {
                     type="button"
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                     aria-expanded={isOpen}
-                    className="group flex w-full items-start justify-between gap-6 py-5 text-left"
+                    className="group flex w-full items-start justify-between gap-6 py-5 text-left cursor-pointer"
                   >
                     <div className="flex items-start gap-4">
                       <span

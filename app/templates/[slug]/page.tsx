@@ -34,8 +34,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `${niche.brand} — Template Toko ${niche.dock.label} | Komose`,
+    title: `${niche.brand}`,
     description: `Preview template website modern & interaktif untuk bisnis ${niche.dock.label}. Desain elegan, responsif, dan siap jualan langsung via WhatsApp bersama Komose.`,
+    icons: {
+      icon: [
+        { url: `/favicon-${slug}.png`, type: "image/png" },
+        { url: `/favicon-${slug}.svg`, type: "image/svg+xml" },
+        { url: niche.logo || `/favicon-${slug}.png` },
+      ],
+      apple: [
+        { url: `/favicon-${slug}.png` },
+      ],
+    },
     openGraph: {
       title: `${niche.brand} — Template ${niche.dock.label} by Komose`,
       description: `Website jualan performa tinggi untuk ${niche.dock.label}. Preview interaktif & pesan sekarang.`,
