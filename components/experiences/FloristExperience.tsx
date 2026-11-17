@@ -471,10 +471,16 @@ export function FloristExperience() {
               </a>
             </Magnetic>
             <a
-              href="#order-form"
+              href={`https://wa.me/${clientWa}?text=${encodeURIComponent(
+                isNafila
+                  ? `Halo ${brand}, saya ingin konsultasi buket untuk kado spesial.`
+                  : `Halo ${brand}, saya mau tanya slot urgent order buket hari ini.`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-line bg-surface px-7 py-3.5 font-ui text-[10.5px] font-semibold uppercase tracking-[0.16em] text-ink hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors shadow-sm cursor-pointer"
             >
-              <span>{isNafila ? "Isi Form Pemesanan ↓" : hero.secondaryCta}</span>
+              <span>{isNafila ? "Konsultasi Cepat WA ↗" : hero.secondaryCta}</span>
             </a>
           </div>
 
@@ -715,11 +721,6 @@ export function FloristExperience() {
               subtitle=""
               radius={620}
               autoRotateSpeed={0.02}
-              onOrderClick={(item) => {
-                setSelectedProduct(item.name);
-                const orderSection = document.getElementById("order-form");
-                orderSection?.scrollIntoView({ behavior: "smooth", block: "start" });
-              }}
               onAddToCart={(item) => {
                 const product =
                   item.originalProduct ||
@@ -737,6 +738,9 @@ export function FloristExperience() {
                 image: p.image,
                 badge: p.badge,
                 originalProduct: p,
+                whatsappUrl: `https://wa.me/${clientWa}?text=${encodeURIComponent(
+                  `Halo ${brand}, saya ingin konsultasi / pesan buket "${p.name}" (${formatIDR(p.price)}). Apakah slot & variannya masih ready? Terima kasih!`
+                )}`,
               }))}
             />
           </div>
@@ -1030,11 +1034,15 @@ export function FloristExperience() {
 
                   <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                     <a
-                      href="#order-form"
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-accent px-7 py-3.5 font-ui text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[var(--accent-contrast)] hover:opacity-90 transition-opacity cursor-pointer text-center shadow-md"
+                      href={`https://wa.me/${clientWa}?text=${encodeURIComponent(
+                        `Halo ${brand}, saya ingin pesan buket untuk pengiriman hari ini / self pickup.`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-ink px-7 py-3.5 font-ui text-[10.5px] font-semibold uppercase tracking-[0.16em] text-surface hover:bg-[var(--accent)] transition-colors cursor-pointer text-center"
                     >
-                      <span>Isi Form Pemesanan Sekarang</span>
-                      <span>↓</span>
+                      <span>Hubungi WA Sekarang</span>
+                      <span>↗</span>
                     </a>
                     <span className="font-body text-[11px] text-muted text-center sm:text-left">
                       {footer.address}

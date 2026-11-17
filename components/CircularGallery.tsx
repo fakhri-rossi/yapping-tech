@@ -61,48 +61,18 @@ export const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryP
     const [isScrolling, setIsScrolling] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
+    const [startY, setStartY] = useState(0);
     const [startRotation, setStartRotation] = useState(0);
+    const isHorizontalSwipeRef = useRef<boolean | null>(null);
 
-    const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const animationFrameRef = useRef<number | null>(null);
     const containerRef = useRef<HTMLDivElement | null>(null);
     const isInteractingRef = useRef(false);
 
-    // Effect to handle scroll-based rotation (from user sample)
-    useEffect(() => {
-      const handleScroll = () => {
-        setIsScrolling(true);
-        isInteractingRef.current = true;
-        if (scrollTimeoutRef.current) {
-          clearTimeout(scrollTimeoutRef.current);
-        }
-
-        const scrollableHeight =
-          document.documentElement.scrollHeight - window.innerHeight;
-        const scrollProgress =
-          scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
-        const scrollRotation = scrollProgress * 360;
-        setRotation(scrollRotation);
-
-        scrollTimeoutRef.current = setTimeout(() => {
-          setIsScrolling(false);
-          isInteractingRef.current = false;
-        }, 150);
-      };
-
-      window.addEventListener("scroll", handleScroll, { passive: true });
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-        if (scrollTimeoutRef.current) {
-          clearTimeout(scrollTimeoutRef.current);
-        }
-      };
-    }, []);
-
-    // Effect for auto-rotation when not scrolling or dragging
+    // Effect for auto-rotation when not interacting or dragging
     useEffect(() => {
       const autoRotate = () => {
-        if (!isScrolling && !isInteractingRef.current) {
+        if (!isInteractingRef.current && !isDragging) {
           setRotation((prev) => prev + autoRotateSpeed);
         }
         animationFrameRef.current = requestAnimationFrame(autoRotate);
@@ -115,7 +85,7 @@ export const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryP
           cancelAnimationFrame(animationFrameRef.current);
         }
       };
-    }, [isScrolling, autoRotateSpeed]);
+    }, [autoRotateSpeed, isDragging]);
 
     // Mac Trackpad 2-finger horizontal swipe (wheel event deltaX) support
     useEffect(() => {
@@ -148,45 +118,68 @@ export const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryP
       };
     }, []);
 
-    // Pointer / touch drag support with smooth inertia
-    const handlePointerDown = (clientX: number) => {
-      isInteractingRef.current = true;
-      setIsDragging(true);
+    // Pointer / touch drag support with smooth axis-locking (smooth vertical scroll vs horizontal rotate)
+    const handlePointerDown = (clientX: number, clientY: number) => {
       setStartX(clientX);
+      setStartY(clientY);
       setStartRotation(rotation);
+      isHorizontalSwipeRef.current = null;
     };
 
     const handlePointerMove = useCallback(
-      (clientX: number) => {
-        if (!isInteractingRef.current || !isDragging) return;
+      (clientX: number, clientY: number) => {
         const deltaX = clientX - startX;
+        const deltaY = clientY - startY;
+
+        // If swipe direction is not determined yet, evaluate after 8px threshold
+        if (isHorizontalSwipeRef.current === null) {
+          if (Math.abs(deltaX) > 8 || Math.abs(deltaY) > 8) {
+            if (Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+              isHorizontalSwipeRef.current = true;
+              isInteractingRef.current = true;
+              setIsDragging(true);
+            } else {
+              isHorizontalSwipeRef.current = false;
+              return;
+            }
+          } else {
+            return;
+          }
+        }
+
+        // If vertical scrolling was detected, do not interfere with card rotation
+        if (isHorizontalSwipeRef.current === false) return;
+
+        // Smooth horizontal rotation
         setRotation(startRotation + deltaX * 0.35);
       },
-      [isDragging, startX, startRotation],
+      [startX, startY, startRotation],
     );
 
     const handlePointerUp = () => {
-      if (!isDragging) return;
       setIsDragging(false);
+      isHorizontalSwipeRef.current = null;
       setTimeout(() => {
         isInteractingRef.current = false;
-      }, 800);
+      }, 500);
     };
 
     useEffect(() => {
       const onMouseMove = (e: MouseEvent) => {
-        if (isDragging) handlePointerMove(e.clientX);
+        if (isDragging || isHorizontalSwipeRef.current === null) {
+          handlePointerMove(e.clientX, e.clientY);
+        }
       };
       const onMouseUp = () => {
-        if (isDragging) handlePointerUp();
+        handlePointerUp();
       };
       const onTouchMove = (e: TouchEvent) => {
-        if (isDragging && e.touches.length > 0) {
-          handlePointerMove(e.touches[0].clientX);
+        if (e.touches.length > 0) {
+          handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
         }
       };
       const onTouchEnd = () => {
-        if (isDragging) handlePointerUp();
+        handlePointerUp();
       };
 
       window.addEventListener("mousemove", onMouseMove);
@@ -239,10 +232,10 @@ export const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryP
         }}
         role="region"
         aria-label="Katalog 3D Berputar"
-        onMouseDown={(e) => handlePointerDown(e.clientX)}
+        onMouseDown={(e) => handlePointerDown(e.clientX, e.clientY)}
         onTouchStart={(e) => {
           if (e.touches.length > 0) {
-            handlePointerDown(e.touches[0].clientX);
+            handlePointerDown(e.touches[0].clientX, e.touches[0].clientY);
           }
         }}
         className={cn(
@@ -267,11 +260,11 @@ export const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryP
         )}
 
         <div
-          className="relative w-full h-full flex items-center justify-center pt-2 pb-16"
+          className="relative w-full h-full flex items-center justify-center pt-2 pb-16 will-change-transform"
           style={{
             transform: `rotateY(${rotation}deg)`,
             transformStyle: "preserve-3d",
-            transition: isDragging ? "none" : "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+            transition: isDragging ? "none" : "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
           {items.map((item, i) => {
@@ -292,7 +285,7 @@ export const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryP
                 key={item.id}
                 role="group"
                 aria-label={item.name}
-                className="absolute w-[240px] xs:w-[260px] sm:w-[280px] h-[350px] xs:h-[370px] sm:h-[400px]"
+                className="absolute w-[240px] xs:w-[260px] sm:w-[280px] h-[350px] xs:h-[370px] sm:h-[400px] will-change-transform"
                 style={{
                   transform: `rotateY(${itemAngle}deg) translateZ(${computedRadius}px)`,
                   left: "50%",
@@ -300,12 +293,12 @@ export const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryP
                   marginLeft: "-120px",
                   marginTop: "-175px",
                   opacity: opacity,
-                  transition: isDragging ? "none" : "opacity 0.3s linear",
+                  transition: isDragging ? "none" : "opacity 0.2s linear",
                   backfaceVisibility: "hidden",
                 }}
               >
                 {/* Individual Card identical to the image styling */}
-                <div className="relative w-full h-full rounded-2xl shadow-2xl overflow-hidden group border border-white/20 bg-black/40 backdrop-blur-md">
+                <div className="relative w-full h-full rounded-2xl shadow-xl overflow-hidden group border border-white/20 bg-black/75">
                   {/* Full bleeding image */}
                   <Image
                     src={item.image}
