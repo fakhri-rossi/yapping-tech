@@ -3,7 +3,7 @@ import type {
   NicheConfig,
   NicheId,
   Product,
-} from "@/types/landing";
+} from "@type/landing";
 
 export const WHATSAPP_NUMBER = "6281110010324";
 

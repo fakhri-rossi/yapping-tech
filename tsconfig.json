@@ -19,6 +19,12 @@
       }
     ],
     "paths": {
+      "@components/*": ["./components/*"],
+      "@config/*": ["./config/*"],
+      "@lib/*": ["./lib/*"],
+      "@context/*": ["./context/*"],
+      "@type/*": ["./types/*"],
+      "@app/*": ["./app/*"],
       "@/*": ["./*"]
     }
   },
@@ -30,5 +36,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "plivin-digital-gift"]
 }

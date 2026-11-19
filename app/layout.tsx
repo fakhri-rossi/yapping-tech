@@ -1,14 +1,30 @@
 import type { Metadata, Viewport } from "next";
 import {
+  Caveat,
   Cormorant_Garamond,
   DM_Serif_Display,
+  Montserrat,
   Outfit,
   Playfair_Display,
   Plus_Jakarta_Sans,
   Space_Grotesk,
 } from "next/font/google";
 import "./globals.css";
-import { DynamicBrandFavicon } from "@/components/DynamicBrandFavicon";
+import { DynamicBrandFavicon } from "@components/ui/DynamicBrandFavicon";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-caveat",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -90,7 +106,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${playfair.variable} ${cormorant.variable} ${dmSerif.variable} ${jakarta.variable} ${outfit.variable} ${spaceGrotesk.variable} antialiased`}
+      className={`${playfair.variable} ${cormorant.variable} ${dmSerif.variable} ${jakarta.variable} ${outfit.variable} ${spaceGrotesk.variable} ${montserrat.variable} ${caveat.variable} antialiased`}
     >
       <body className="font-jakarta">
         <DynamicBrandFavicon />

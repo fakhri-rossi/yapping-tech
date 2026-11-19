@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <radialGradient id="scrollGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ca8a04" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="parchment" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#fef9c3"/>
+      <stop offset="100%" stop-color="#fde047"/>
+    </linearGradient>
+    <filter id="scrollShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#854d0e" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <circle cx="60" cy="60" r="48" fill="url(#scrollGlow)"/>
+
+  <g filter="url(#scrollShadow)" transform="rotate(8 60 60)">
+    <!-- Main Diploma Sheet Roll -->
+    <rect x="36" y="22" width="48" height="76" rx="8" fill="url(#parchment)"/>
+
+    <!-- Document Lines -->
+    <line x1="44" y1="34" x2="66" y2="34" stroke="#d97706" stroke-width="3" stroke-linecap="round"/>
+    <line x1="44" y1="44" x2="76" y2="44" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="44" y1="52" x2="76" y2="52" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="44" y1="60" x2="72" y2="60" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="44" y1="68" x2="62" y2="68" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Red Wax Seal with Ribbon -->
+    <circle cx="60" cy="80" r="8" fill="#e11d48"/>
+    <circle cx="60" cy="80" r="5" fill="#be123c"/>
+    <path d="M 57 86 L 53 96 L 59 93 L 61 96 L 63 86 Z" fill="#e11d48"/>
+  </g>
+</svg>

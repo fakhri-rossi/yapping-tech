@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <radialGradient id="timeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fde047" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#ca8a04" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e0f2fe" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="woodTrim" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="50%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+    <filter id="hourShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#78350f" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <circle cx="60" cy="60" r="48" fill="url(#timeGlow)"/>
+
+  <g filter="url(#hourShadow)">
+    <!-- Top & Bottom Plates -->
+    <rect x="30" y="24" width="60" height="8" rx="4" fill="url(#woodTrim)"/>
+    <rect x="30" y="88" width="60" height="8" rx="4" fill="url(#woodTrim)"/>
+
+    <!-- Glass Bulbs -->
+    <path d="M 36 32 C 36 52 54 58 57 60 C 54 62 36 68 36 88 L 84 88 C 84 68 66 62 63 60 C 66 58 84 52 84 32 Z" fill="url(#glassGrad)" stroke="#bae6fd" stroke-width="1.5"/>
+
+    <!-- Top Sand (Falling) -->
+    <path d="M 42 36 C 42 46 54 54 60 56 C 66 54 78 46 78 36 Z" fill="#facc15"/>
+    <line x1="60" y1="56" x2="60" y2="76" stroke="#facc15" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Bottom Sand Mound -->
+    <path d="M 40 86 C 40 82 52 76 60 76 C 68 76 80 82 80 86 Z" fill="#facc15"/>
+
+    <!-- Sparkle Stars -->
+    <circle cx="60" cy="72" r="1.5" fill="#ffffff"/>
+    <path d="M 85 40 Q 86 43 89 44 Q 86 45 85 48 Q 84 45 81 44 Q 84 43 85 40 Z" fill="#fef08a"/>
+  </g>
+</svg>

@@ -3,12 +3,12 @@
 import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useShowcase } from "@/context/ShowcaseContext";
-import { InteractiveShowcaseSlider } from "@/components/InteractiveShowcaseSlider";
-import { FaqAccordion } from "@/components/FaqAccordion";
-import { SiteFooter } from "@/components/SiteFooter";
-import { Magnetic } from "@/components/ui/Magnetic";
-import { cn, formatIDR } from "@/lib/format";
+import { useShowcase } from "@context/ShowcaseContext";
+import { InteractiveShowcaseSlider } from "@components/templates/InteractiveShowcaseSlider";
+import { FaqAccordion } from "@components/templates/FaqAccordion";
+import { SiteFooter } from "@components/templates/SiteFooter";
+import { Magnetic } from "@components/ui/Magnetic";
+import { cn, formatIDR } from "@lib/format";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 

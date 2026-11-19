@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { CLIENT_PREVIEW_DOMAINS } from "@/lib/cms";
-import type { NicheConfig } from "@/types/landing";
+import { CLIENT_PREVIEW_DOMAINS } from "@lib/cms";
+import type { NicheConfig } from "@type/landing";
 
 export type PreviewViewport = "desktop" | "tablet" | "mobile";
 

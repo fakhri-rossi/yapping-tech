@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farewell drg. Wifda Safitri</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --paper-bg: #fdfbf7;
+      --ink: #2b2b2b;
+      --sketch-red: #e05d5d;
+    }
+    
+    body {
+      background: radial-gradient(circle, #fcfaf6 0%, #ebe7de 100%);
+      color: var(--ink);
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .font-handwritten {
+      font-family: 'Caveat', cursive;
+    }
+
+    /* Paper texture overlay */
+    .paper-texture {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Scrapbook sheet */
+    .scrapbook-page {
+      background-color: var(--paper-bg);
+      border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 
+                  0 1px 3px rgba(0, 0, 0, 0.05),
+                  inset 0 0 40px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0,0,0,0.06);
+      position: relative;
+    }
+
+    /* Polaroid photo frame */
+    .polaroid-frame {
+      background: white;
+      padding: 10px 10px 24px 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.05);
+      transform: rotate(var(--rot, -3deg));
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .polaroid-frame:hover {
+      transform: rotate(0deg) scale(1.03);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    /* Washi tape decor */
+    .washi-tape {
+      position: absolute;
+      width: 80px;
+      height: 24px;
+      background: rgba(224, 93, 93, 0.25);
+      border-left: 1px dashed rgba(224, 93, 93, 0.4);
+      border-right: 1px dashed rgba(224, 93, 93, 0.4);
+      transform: rotate(-10deg);
+      top: -12px;
+      left: 50%;
+      margin-left: -40px;
+      z-index: 10;
+    }
+
+    .washi-tape-diagonal {
+      position: absolute;
+      width: 70px;
+      height: 20px;
+      background: rgba(93, 173, 224, 0.25);
+      border-left: 1px dashed rgba(93, 173, 224, 0.4);
+      border-right: 1px dashed rgba(93, 173, 224, 0.4);
+      transform: rotate(45deg);
+      top: -5px;
+      right: -15px;
+      z-index: 10;
+    }
+
+    /* Paper/Scrapbook Modals */
+    .scrapbook-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transform: scale(0.9) translateY(20px);
+    }
+
+    .scrapbook-modal.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+    }
+
+    /* Bouncing / floating animations */
+    .floating-item {
+      animation: gentleFloat 4s infinite ease-in-out alternate;
+    }
+    .floating-item:nth-child(2) {
+      animation-delay: 1.2s;
+    }
+    .floating-item:nth-child(3) {
+      animation-delay: 2.4s;
+    }
+
+    @keyframes gentleFloat {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+
+    /* Paper zoom & tear opening transition styles */
+    .paper-reveal-exit {
+      animation: paperTearReveal 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+    }
+
+    @keyframes paperTearReveal {
+      0% { transform: scale(1); opacity: 1; filter: blur(0); }
+      100% { transform: scale(1.6); opacity: 0; filter: blur(10px); }
+    }
+
+    /* ===== RESPONSIVE MEDIA QUERIES ===== */
+    @media (max-width: 640px) {
+      .scrapbook-page {
+        margin: 10px;
+        padding: 1.5rem !important;
+      }
+      h1.font-handwritten, h2.font-handwritten {
+        font-size: 2.2rem !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .scrapbook-page {
+        padding: 1.25rem 1rem !important;
+      }
+      .w-32.h-32 {
+        width: 6.5rem !important;
+        height: 6.5rem !important;
+      }
+      .polaroid-frame {
+        padding: 8px 8px 18px 8px !important;
+      }
+      .polaroid-frame .w-24.h-28 {
+        width: 5.5rem !important;
+        height: 6.5rem !important;
+      }
+      h1.font-handwritten, h2.font-handwritten, button.font-handwritten {
+        font-size: 1.8rem !important;
+      }
+      .scrapbook-modal {
+        padding: 1rem !important;
+      }
+    }
+  </style>
+  <!-- Vercel Analytics -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body class="p-4 selection:bg-[#e05d5d]/20">
+
+  <!-- Paper texture overlay -->
+  <div class="paper-texture"></div>
+
+  <!-- Audio -->
+  <audio id="bgMusic" src="../../music/sampai-jumpa.mp3" preload="auto" loop></audio>
+
+  <!-- Music Control Button -->
+  <button id="musicToggle" class="fixed top-4 right-4 z-50 scrapbook-page text-slate-800 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg border border-slate-300 transition-all cursor-pointer hidden">
+    <span id="musicIcon">▶</span>
+  </button>
+
+  <!-- ==================== STEP 1: COVER SCREEN ==================== -->
+  <div id="coverScreen" class="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-[#eae6df] p-4 transition-all duration-1000">
+    <div class="scrapbook-page p-8 md:p-12 rounded-xl max-w-md w-full text-center relative border border-slate-300 shadow-2xl">
+      <div class="washi-tape" style="background: rgba(93, 173, 224, 0.35);"></div>
+      <div class="text-5xl mb-6 animate-bounce">💌</div>
+      <h2 class="font-handwritten text-4xl text-[#e05d5d] mb-4">Kenangan drg. Wifda Safitri</h2>
+      <p class="text-sm text-slate-600 mb-8 leading-relaxed font-light">
+        Sebuah persembahan sederhana untuk rekan-rekan terbaik di Klinik Pratama Pegadaian Permata. Buka yuk... 🎁
+      </p>
+      <button id="openCoverBtn" class="font-bold px-8 py-3 bg-[#e05d5d] text-white rounded-lg hover:bg-[#c74c4c] transition-all duration-300 shadow-md uppercase tracking-wider text-xs cursor-pointer">
+        Buka Memori Kita ✉️
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 2: INTRO SCREEN ==================== -->
+  <div id="introScreen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#ebe7de] p-4 transition-all duration-1000 hidden opacity-0">
+    <div class="scrapbook-page p-8 md:p-12 rounded-xl max-w-md w-full text-center relative border border-slate-300">
+      <div class="washi-tape"></div>
+      
+      <!-- Circle Image -->
+      <div class="w-48 h-48 mx-auto mb-6 overflow-hidden rounded-full border-4 border-white shadow-md floating-item">
+        <img src="https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-10%20at%2019.41.11.jpeg" alt="Klinik Pratama" class="w-full h-full object-cover">
+      </div>
+
+      <h1 class="font-handwritten text-4xl text-[#e05d5d] mb-4">Terima Kasih Guys...</h1>
+      <p class="text-sm md:text-base text-slate-600 mb-8 leading-relaxed font-light">
+        Terima kasih atas segala memori manis dan tawa hangat yang kita bagi bersama. Saya sangat bersyukur diizinkan menjadi bagian dari tim hebat di sini. Berikut pesan kecil dan beberapa kenangan kita...
+      </p>
+      
+      <button id="startBtn" class="font-bold px-8 py-3 bg-[#e05d5d] text-white rounded-lg hover:bg-[#c74c4c] transition-all duration-300 shadow-md uppercase tracking-wider text-xs cursor-pointer">
+        Lihat Kenangan 👉
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 3: MAIN BOARD ==================== -->
+  <main id="mainBoard" class="hidden max-w-2xl w-full scrapbook-page p-6 md:p-10 rounded-xl relative border border-slate-300 opacity-0 transition-opacity duration-1000">
+    <div class="washi-tape-diagonal"></div>
+    
+    <div class="text-center mb-8 md:mb-12">
+      <h2 class="font-handwritten text-4xl text-[#e05d5d] mb-2">Kenangan drg. Wifda</h2>
+      <p class="text-xs md:text-sm text-slate-500 uppercase tracking-widest font-semibold">Ketuk barang-barang di bawah ini ya! 🌸</p>
+    </div>
+
+    <!-- Items Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 items-center justify-center">
+      
+      <!-- Item 1: Surat Cinta -->
+      <div class="flex flex-col items-center text-center floating-item">
+        <div class="w-28 h-28 md:w-32 md:h-32 mb-3 cursor-pointer hover:scale-105 transition-all" onclick="openModal('letterModal')">
+          <img src="../../images/paper-envelope.png" alt="Love Letter" class="w-full h-full object-contain">
+        </div>
+        <button class="font-handwritten text-xl md:text-2xl text-slate-700 hover:text-[#e05d5d]" onclick="openModal('letterModal')">
+          Pesan Perpisahan ✉️
+        </button>
+      </div>
+
+      <!-- Item 2: Foto Kita (Mockup Polaroid) -->
+      <div class="flex flex-col items-center text-center floating-item">
+        <div class="polaroid-frame mb-3" onclick="openModal('photoModal')">
+          <div class="w-20 h-24 md:w-24 md:h-28 overflow-hidden rounded">
+            <img src="https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-10%20at%2019.41.11.jpeg" alt="Memory" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <button class="font-handwritten text-xl md:text-2xl text-slate-700 hover:text-[#e05d5d]" onclick="openModal('photoModal')">
+          Foto Kenangan 📸
+        </button>
+      </div>
+
+      <!-- Item 3: Video Kenangan -->
+      <div class="flex flex-col items-center text-center floating-item">
+        <div class="polaroid-frame mb-3 cursor-pointer hover:scale-105 transition-all flex items-center justify-center bg-slate-900 text-white relative" onclick="openModal('videoModal')">
+          <div class="w-20 h-24 md:w-24 md:h-28 overflow-hidden rounded bg-slate-800 flex items-center justify-center">
+            <svg class="w-8 h-8 text-white/90" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+        </div>
+        <button class="font-handwritten text-xl md:text-2xl text-slate-700 hover:text-[#e05d5d]" onclick="openModal('videoModal')">
+          Video Momen 🎬
+        </button>
+      </div>
+
+      <!-- Item 4: Musik Kita (Headphone) -->
+      <div class="flex flex-col items-center text-center floating-item">
+        <div class="w-28 h-28 md:w-32 md:h-32 mb-3 cursor-pointer hover:scale-105 transition-all" onclick="openModal('musicModal')">
+          <img src="../../images/paper-headphone.png" alt="Music" class="w-full h-full object-contain">
+        </div>
+        <button class="font-handwritten text-xl md:text-2xl text-slate-700 hover:text-[#e05d5d]" onclick="openModal('musicModal')">
+          Audio Player 🎧
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- MODAL 1: SURAT CINTA -->
+  <div id="letterModal" class="scrapbook-modal bg-black/40 backdrop-blur-sm">
+    <div class="scrapbook-page p-6 md:p-8 rounded-xl max-w-md w-full relative border border-slate-300 shadow-xl">
+      <div class="washi-tape"></div>
+      <h3 class="font-handwritten text-3xl text-[#e05d5d] text-center mb-4">Pesan drg. Wifda</h3>
+      
+      <!-- Typist container -->
+      <p id="letterContent" class="text-sm md:text-base text-slate-700 leading-relaxed font-light mb-6 min-h-[120px] whitespace-pre-line"></p>
+
+      <button class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold uppercase transition-all cursor-pointer" onclick="closeModal('letterModal')">
+        Tutup Pesan
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL 2: FOTO KITA (Gallery) -->
+  <div id="photoModal" class="scrapbook-modal bg-black/40 backdrop-blur-sm">
+    <div class="scrapbook-page p-6 md:p-8 rounded-xl max-w-md w-full text-center relative border border-slate-300 shadow-xl">
+      <div class="washi-tape"></div>
+      <h3 class="font-handwritten text-3xl text-[#e05d5d] mb-4">Galeri Kebersamaan</h3>
+
+      <!-- Photo carousel display -->
+      <div class="relative w-full rounded-lg overflow-hidden border border-slate-200 mb-6 bg-slate-50 flex items-center justify-center">
+        <img id="carouselImg" src="https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-10%20at%2019.41.11.jpeg" class="max-w-full h-auto max-h-[60vh] object-contain transition-all duration-300" alt="Memory">
+      </div>
+
+      <div class="flex items-center justify-between gap-2 sm:gap-4 mb-6">
+        <button class="px-3 sm:px-4 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-[11px] sm:text-xs font-bold uppercase transition-all cursor-pointer whitespace-nowrap" onclick="prevPhoto()">
+          Sebelumnya
+        </button>
+        <span id="photoIndicator" class="font-handwritten text-lg sm:text-xl text-slate-600 whitespace-nowrap min-w-[50px] text-center"></span>
+        <button class="px-3 sm:px-4 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-[11px] sm:text-xs font-bold uppercase transition-all cursor-pointer whitespace-nowrap" onclick="nextPhoto()">
+          Selanjutnya
+        </button>
+      </div>
+
+      <button class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold uppercase transition-all cursor-pointer" onclick="closeModal('photoModal')">
+        Tutup Galeri
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL 3: VIDEO KENANGAN -->
+  <div id="videoModal" class="scrapbook-modal bg-black/40 backdrop-blur-sm">
+    <div class="scrapbook-page p-6 md:p-8 rounded-xl max-w-lg w-full text-center relative border border-slate-300 shadow-xl">
+      <div class="washi-tape"></div>
+      <h3 class="font-handwritten text-3xl text-[#e05d5d] mb-4">Video Kenangan 🎥</h3>
+
+      <div class="relative w-full rounded-lg overflow-hidden border border-slate-200 mb-6 bg-black flex items-center justify-center">
+        <video id="memoryVideo" controls muted class="w-full max-h-[65vh] rounded-lg">
+          <source src="https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Video%202026-07-23%20at%2020.20.49.mp4" type="video/mp4">
+          Browser Anda tidak mendukung penayangan video.
+        </video>
+      </div>
+
+      <button class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold uppercase transition-all cursor-pointer" onclick="closeModal('videoModal')">
+        Tutup Video
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL 3: MUSIK KITA (Tape Player) -->
+  <div id="musicModal" class="scrapbook-modal bg-black/40 backdrop-blur-sm">
+    <div class="scrapbook-page p-6 md:p-8 rounded-xl max-w-sm w-full text-center relative border border-slate-300 shadow-xl">
+      <div class="washi-tape"></div>
+      <h3 class="font-handwritten text-3xl text-[#e05d5d] mb-4">Tape Recorder</h3>
+      
+      <!-- Cassette Mockup -->
+      <div class="w-full aspect-[1.8/1] bg-slate-900 border-4 border-slate-700 rounded-lg p-4 flex flex-col justify-between mb-6 shadow-inner text-slate-400 font-mono text-[10px]">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-1">
+          <span>SIDE A</span>
+          <span class="text-cyan-400 font-bold">Sampai Jumpa - Endank Soekamti</span>
+        </div>
+        <div class="flex justify-center items-center gap-6 my-2">
+          <!-- Tape reels spinning animation -->
+          <div id="reelL" class="w-8 h-8 rounded-full border-4 border-dashed border-slate-600 flex items-center justify-center">
+            <div class="w-2 h-2 bg-slate-700 rounded-full"></div>
+          </div>
+          <div id="reelR" class="w-8 h-8 rounded-full border-4 border-dashed border-slate-600 flex items-center justify-center">
+            <div class="w-2 h-2 bg-slate-700 rounded-full"></div>
+          </div>
+        </div>
+        <div id="playingIndicator" class="text-center uppercase tracking-widest text-[8px] text-slate-600">
+          [ TAPE DECK STOPPED ]
+        </div>
+      </div>
+
+      <div class="flex justify-center gap-4">
+        <button id="modalPlayPauseBtn" class="flex-1 py-3 bg-[#e05d5d] hover:bg-[#c74c4c] text-white rounded-lg font-bold text-xs uppercase transition-all cursor-pointer">
+          PLAY TAPE ▶
+        </button>
+      </div>
+
+      <button class="w-full py-2 mt-6 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold uppercase transition-all cursor-pointer" onclick="closeModal('musicModal')">
+        Tutup Tape
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let musicPlaying = false;
+    let currentPhotoIdx = 0;
+    const couplePhotos = [
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-10%20at%2019.41.11.jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-10%20at%2019.41.11%20(1).jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-10%20at%2019.41.10.jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-10%20at%2019.41.12.jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-11%20at%2021.51.31.jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-11%20at%2021.51.30.jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-11%20at%2021.51.34.jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-11%20at%2021.51.33%20(1).jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-11%20at%2021.51.33%20(2).jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-11%20at%2021.51.38.jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-11%20at%2021.51.34.jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-11%20at%2021.51.36.jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-11%20at%2021.51.37.jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-11%20at%2021.51.36%20(1).jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/Screenshot%202026-07-11%20at%2022.06.26.png",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/Screenshot%202026-07-11%20at%2022.06.18.png",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-20%20at%2020.39.16%20(2).jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-20%20at%2020.39.16%20(1).jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-20%20at%2020.39.16.jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-23%20at%2014.49.33.jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-24%20at%2018.22.01.jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-24%20at%2017.37.25.jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-24%20at%2017.54.45.jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-24%20at%2017.37.25%20(1).jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-24%20at%2020.51.31%20(1).jpeg",
+      "https://ik.imagekit.io/nm131z8rg/plivin-digital-gift/klien/wifda/WhatsApp%20Image%202026-07-24%20at%2020.51.31.jpeg"
+    ];
+
+    const loveLetter = "Teruntuk Rekan-rekan Klinik Pratama Pegadaian Permata... 💚\n\nTidak terasa 10 tahun sudah perjalanan dan pengabdian saya di klinik ini berlalu begitu cepat, dan kini saatnya saya (drg. Wifda) harus pamit undur diri.\n\nSelama disini, saya ingin mengucapkan terima kasih yang sebesar-besarnya atas bimbingan, canda tawa, dan kerja sama yang luar biasa dari rekan-rekan sekalian. Setiap momen indah yang kita lalui bersama di ruang poli gigi, ruang tunggu, hingga kebersamaan santai sepulang dinas akan selalu tersimpan manis dalam ingatan saya.\n\nSaya memohon maaf yang setulus-tulusnya jika selama 10 tahun ini ada kata-kata atau tindakan saya yang kurang berkenan.\n\nSemoga rekan-rekan semua selalu diberikan kesehatan, kelancaran, dan Klinik Pratama Pegadaian Permata semakin maju dan sukses selalu. Sampai jumpa lagi di lain kesempatan! Terima kasih untuk segalanya selama ini. Salam hangat Drg. Wifda Safitri🩺🦷";
+    let isTyping = false;
+
+    // Web Audio Synthesizer for Paper tear/click
+    function playPaperTearSound() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const bufferSize = audioCtx.sampleRate * 0.15; // 0.15 seconds
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        // Populate with crackling noise to simulate paper tear
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - (i / bufferSize), 2);
+        }
+        
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+        
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 1000;
+        
+        const gainNode = audioCtx.createGain();
+        gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+        
+        noise.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        noise.start();
+      } catch (err) {
+        console.log("AudioContext blocked or not supported:", err);
+      }
+    }
+
+    function playClickSound() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+        
+        gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
+        
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.05);
+      } catch (err) {
+        console.log("AudioContext blocked or not supported:", err);
+      }
+    }
+
+    function playMusicAuto() {
+      const audio = document.getElementById('bgMusic');
+      if (audio && audio.paused) {
+        audio.play().then(() => {
+          musicPlaying = true;
+          audio.volume = 0.8;
+          document.getElementById('musicIcon').textContent = '⏸';
+          document.getElementById('modalPlayPauseBtn').textContent = 'PAUSE TAPE ⏸';
+          const playingIndicator = document.getElementById('playingIndicator');
+          playingIndicator.textContent = '[ PLAYING TAPE DECK ]';
+          playingIndicator.className = 'text-center uppercase tracking-widest text-[8px] text-cyan-400 font-bold';
+          document.getElementById('reelL').classList.add('animate-spin');
+          document.getElementById('reelR').classList.add('animate-spin');
+          document.getElementById('musicToggle').classList.remove('hidden');
+        }).catch(e => console.log("Autoplay blocked:", e));
+      }
+    }
+
+    // Step 1: Open Cover Screen
+    document.getElementById('openCoverBtn').addEventListener('click', () => {
+      playPaperTearSound();
+      playMusicAuto();
+      
+      const cover = document.getElementById('coverScreen');
+      cover.classList.add('paper-reveal-exit');
+
+      setTimeout(() => {
+        cover.style.display = 'none';
+        
+        const intro = document.getElementById('introScreen');
+        intro.classList.remove('hidden');
+        setTimeout(() => {
+          intro.classList.add('opacity-100');
+        }, 100);
+      }, 800);
+    });
+
+    // Step 2: Launch main board (Intro)
+    document.getElementById('startBtn').addEventListener('click', () => {
+      playClickSound();
+      playMusicAuto();
+      
+      const intro = document.getElementById('introScreen');
+      intro.style.opacity = '0';
+      intro.style.pointerEvents = 'none';
+
+      setTimeout(() => {
+        intro.style.display = 'none';
+        const mainBoard = document.getElementById('mainBoard');
+        mainBoard.classList.remove('hidden');
+        setTimeout(() => {
+          mainBoard.style.opacity = '1';
+        }, 100);
+      }, 1000);
+    });
+
+    // Music control function exclusively triggered in play tape
+    function toggleMusicHandler() {
+      const audio = document.getElementById('bgMusic');
+      const icon = document.getElementById('musicIcon');
+      const modalBtn = document.getElementById('modalPlayPauseBtn');
+      const reelL = document.getElementById('reelL');
+      const reelR = document.getElementById('reelR');
+      const playingIndicator = document.getElementById('playingIndicator');
+      const toggleBtn = document.getElementById('musicToggle');
+
+      playClickSound();
+
+      if (audio.paused) {
+        audio.play().then(() => {
+          musicPlaying = true;
+          audio.volume = 0.8;
+          icon.textContent = '⏸';
+          modalBtn.textContent = 'PAUSE TAPE ⏸';
+          playingIndicator.textContent = '[ PLAYING TAPE DECK ]';
+          playingIndicator.className = 'text-center uppercase tracking-widest text-[8px] text-cyan-400 font-bold';
+          reelL.classList.add('animate-spin');
+          reelR.classList.add('animate-spin');
+          toggleBtn.classList.remove('hidden');
+        }).catch(e => console.log("Audio blocked:", e));
+      } else {
+        audio.pause();
+        icon.textContent = '▶';
+        modalBtn.textContent = 'PLAY TAPE ▶';
+        playingIndicator.textContent = '[ TAPE DECK STOPPED ]';
+        playingIndicator.className = 'text-center uppercase tracking-widest text-[8px] text-slate-600';
+        reelL.classList.remove('animate-spin');
+        reelR.classList.remove('animate-spin');
+        musicPlaying = false;
+      }
+    }
+
+    document.getElementById('musicToggle').addEventListener('click', toggleMusicHandler);
+    document.getElementById('modalPlayPauseBtn').addEventListener('click', toggleMusicHandler);
+
+    // Modal Control functions
+    function openModal(id) {
+      playClickSound();
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.add('active');
+        if (id === 'letterModal') {
+          typeWriterEffect('letterContent', loveLetter, 45);
+        }
+      }
+    }
+
+    function closeModal(id) {
+      playClickSound();
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.remove('active');
+        if (id === 'letterModal') {
+          isTyping = false;
+        }
+        if (id === 'videoModal') {
+          const video = document.getElementById('memoryVideo');
+          if (video) video.pause();
+        }
+      }
+    }
+
+    // Typewriter effect
+    function typeWriterEffect(elementId, text, speed) {
+      if (isTyping) return;
+      isTyping = true;
+      const el = document.getElementById(elementId);
+      el.innerHTML = '';
+      let i = 0;
+      function write() {
+        if (i < text.length && isTyping) {
+          if (text.charAt(i) === '\n') {
+            el.innerHTML += '<br>';
+          } else {
+            el.innerHTML += text.charAt(i);
+          }
+          i++;
+          setTimeout(write, speed);
+        }
+      }
+      write();
+    }
+
+    // Photo Gallery sliders
+    function updatePhotoView() {
+      document.getElementById('carouselImg').src = couplePhotos[currentPhotoIdx];
+      document.getElementById('photoIndicator').textContent = `${currentPhotoIdx + 1} / ${couplePhotos.length}`;
+    }
+
+    function nextPhoto() {
+      playClickSound();
+      currentPhotoIdx = (currentPhotoIdx + 1) % couplePhotos.length;
+      updatePhotoView();
+    }
+
+    function prevPhoto() {
+      playClickSound();
+      currentPhotoIdx = (currentPhotoIdx - 1 + couplePhotos.length) % couplePhotos.length;
+      updatePhotoView();
+    }
+
+    // Initialize photo view
+    updatePhotoView();
+
+    // Touch Swipe Gestures for Photo Carousel on Mobile
+    let carouselTouchStartX = 0;
+    let carouselTouchStartY = 0;
+    const photoModalElement = document.getElementById('photoModal');
+    if (photoModalElement) {
+      photoModalElement.addEventListener('touchstart', (e) => {
+        carouselTouchStartX = e.changedTouches[0].screenX;
+        carouselTouchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      photoModalElement.addEventListener('touchend', (e) => {
+        const diffX = carouselTouchStartX - e.changedTouches[0].screenX;
+        const diffY = carouselTouchStartY - e.changedTouches[0].screenY;
+        // Check if horizontal swipe is prominent and larger than threshold
+        if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+          if (diffX > 0) {
+            nextPhoto();
+          } else {
+            prevPhoto();
+          }
+        }
+      }, { passive: true });
+    }
+  </script>
+</body>
+</html>

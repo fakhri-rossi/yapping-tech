@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { WHATSAPP_NUMBER } from "@/config/niches";
-import { ComproNavbar } from "@/components/ComproNavbar";
-import { EcosystemStructureDiagram } from "@/components/EcosystemStructureDiagram";
-import { ComparisonSection } from "@/components/ComparisonSection";
-import { FounderSection } from "@/components/FounderSection";
-import { FaqSection } from "@/components/FaqSection";
-import { ModernFooter } from "@/components/ModernFooter";
+import { WHATSAPP_NUMBER } from "@config/niches";
+import { ComproNavbar } from "@components/landing/ComproNavbar";
+import { EcosystemStructureDiagram } from "@components/landing/EcosystemStructureDiagram";
+import { ComparisonSection } from "@components/landing/ComparisonSection";
+import { FounderSection } from "@components/landing/FounderSection";
+import { FaqSection } from "@components/landing/FaqSection";
+import { ModernFooter } from "@components/landing/ModernFooter";
 
 export const metadata: Metadata = {
   title: "Yapping Techflow",

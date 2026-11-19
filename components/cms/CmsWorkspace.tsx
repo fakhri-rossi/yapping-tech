@@ -4,33 +4,33 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState, type ChangeEvent } from "react";
-import { WHATSAPP_NUMBER } from "@/config/niches";
-import { useShowcase } from "@/context/ShowcaseContext";
+import { WHATSAPP_NUMBER } from "@config/niches";
+import { useShowcase } from "@context/ShowcaseContext";
 import {
   DEFAULT_REVIEWS_BY_NICHE,
   THEME_PRESETS,
   formatBrandTitle,
   getManagementSystemTitle,
   resolveNicheCms,
-} from "@/lib/cms";
-import { formatIDR } from "@/lib/format";
+} from "@lib/cms";
+import { formatIDR } from "@lib/format";
 import {
   CmsCard,
   CmsField,
   CmsToggle,
   cmsInputClass,
-} from "@/components/cms/CmsFields";
+} from "@components/cms/CmsFields";
 import {
   CmsPreviewFrame,
   type PreviewViewport,
-} from "@/components/cms/CmsPreviewFrame";
-import { ImagePickerModal } from "@/components/cms/ImagePickerModal";
+} from "@components/cms/CmsPreviewFrame";
+import { ImagePickerModal } from "@components/cms/ImagePickerModal";
 import type {
   CmsReviewItem,
   NicheConfig,
   NicheId,
   Product,
-} from "@/types/landing";
+} from "@type/landing";
 
 type CmsTabId =
   | "overview"

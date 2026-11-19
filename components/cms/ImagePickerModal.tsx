@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useState, type ChangeEvent } from "react";
-import { PRESET_IMAGES } from "@/lib/cms";
-import type { NicheId } from "@/types/landing";
+import { PRESET_IMAGES } from "@lib/cms";
+import type { NicheId } from "@type/landing";
 
 interface ImagePickerModalProps {
   isOpen: boolean;

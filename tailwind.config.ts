@@ -10,6 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        montserrat: ["var(--font-montserrat)", "'Montserrat'", "sans-serif"],
         display: ["var(--font-playfair)", "Georgia", "serif"],
         cormorant: ["var(--font-cormorant)", "Georgia", "serif"],
         dmserif: ["var(--font-dm-serif)", "Georgia", "serif"],

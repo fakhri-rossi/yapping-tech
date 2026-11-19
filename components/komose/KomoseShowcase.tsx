@@ -12,9 +12,9 @@ import {
   ShieldCheckIcon,
   SparklesIcon,
 } from "./KomoseIcons";
-import { NICHES, WHATSAPP_NUMBER } from "@/config/niches";
-import type { NicheConfig } from "@/types/landing";
-import { getManagementSystemTitle } from "@/lib/cms";
+import { NICHES, WHATSAPP_NUMBER } from "@config/niches";
+import type { NicheConfig } from "@type/landing";
+import { getManagementSystemTitle } from "@lib/cms";
 
 const NICHE_LAYMAN_META: Record<
   NicheConfig["id"],

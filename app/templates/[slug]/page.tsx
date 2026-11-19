@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { NICHE_MAP, NICHES } from "@/config/niches";
-import type { NicheId } from "@/types/landing";
-import { CartDrawer } from "@/components/CartDrawer";
-import { DemoControlDock } from "@/components/DemoControlDock";
-import { ScrollToTop } from "@/components/ScrollToTop";
-import { TemplateStage } from "@/components/TemplateStage";
-import { ShowcaseProvider } from "@/context/ShowcaseContext";
+import { NICHE_MAP, NICHES } from "@config/niches";
+import type { NicheId } from "@type/landing";
+import { CartDrawer } from "@components/templates/CartDrawer";
+import { DemoControlDock } from "@components/templates/DemoControlDock";
+import { ScrollToTop } from "@components/ui/ScrollToTop";
+import { TemplateStage } from "@components/templates/TemplateStage";
+import { ShowcaseProvider } from "@context/ShowcaseContext";
 
 interface PageProps {
   params: Promise<{

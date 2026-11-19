@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { KomoseNavbar } from "@/components/komose/KomoseNavbar";
-import { KomoseLogo } from "@/components/komose/KomoseLogo";
-import { TemplatesCatalogClient } from "@/components/TemplatesCatalogClient";
-import { CmsShowcaseSection } from "@/components/CmsShowcaseSection";
+import { KomoseNavbar } from "@components/komose/KomoseNavbar";
+import { KomoseLogo } from "@components/komose/KomoseLogo";
+import { TemplatesCatalogClient } from "@components/templates/TemplatesCatalogClient";
+import { CmsShowcaseSection } from "@components/templates/CmsShowcaseSection";
 
 export const metadata: Metadata = {
   title: "Koleksi Template Toko & Demo CMS — Komose",
@@ -55,10 +55,12 @@ export default function TemplatesIndexPage() {
       </section>
 
       {/* Interactive Package Switcher + Template Cards */}
-      <TemplatesCatalogClient />
+      <div id="katalog" className="scroll-mt-24">
+        <TemplatesCatalogClient />
+      </div>
 
       {/* Live CMS Showcase & Interactive Live Preview Playground */}
-      <div className="border-t border-stone-200/80 mt-4 sm:mt-8">
+      <div id="demo-cms" className="border-t border-stone-200/80 mt-4 sm:mt-8 scroll-mt-24">
         <CmsShowcaseSection />
       </div>
 

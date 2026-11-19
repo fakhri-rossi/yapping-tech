@@ -11,21 +11,21 @@ import {
   type CSSProperties,
   type ReactNode,
 } from "react";
-import { NICHES, NICHE_MAP } from "@/config/niches";
+import { NICHES, NICHE_MAP } from "@config/niches";
 import {
   CMS_CHANNEL_NAME,
   CMS_STORAGE_KEY,
   loadStoredNiches,
   resolveNicheCms,
   saveStoredNiches,
-} from "@/lib/cms";
+} from "@lib/cms";
 import type {
   CartItem,
   NicheConfig,
   NicheId,
   Product,
   ThemeTokens,
-} from "@/types/landing";
+} from "@type/landing";
 
 export function themeStyle(theme: ThemeTokens): CSSProperties {
   return {

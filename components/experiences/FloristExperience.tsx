@@ -3,14 +3,14 @@
 import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useShowcase } from "@/context/ShowcaseContext";
-import { InteractiveShowcaseSlider } from "@/components/InteractiveShowcaseSlider";
-import { FaqAccordion } from "@/components/FaqAccordion";
-import { SiteFooter } from "@/components/SiteFooter";
-import { CircularGallery } from "@/components/CircularGallery";
-import { Magnetic } from "@/components/ui/Magnetic";
-import { cn, formatIDR } from "@/lib/format";
-import { DEFAULT_REVIEWS_BY_NICHE } from "@/lib/cms";
+import { useShowcase } from "@context/ShowcaseContext";
+import { InteractiveShowcaseSlider } from "@components/templates/InteractiveShowcaseSlider";
+import { FaqAccordion } from "@components/templates/FaqAccordion";
+import { SiteFooter } from "@components/templates/SiteFooter";
+import { CircularGallery } from "@components/templates/CircularGallery";
+import { Magnetic } from "@components/ui/Magnetic";
+import { cn, formatIDR } from "@lib/format";
+import { DEFAULT_REVIEWS_BY_NICHE } from "@lib/cms";
 
 const RUMAH_PHONE = "6285966514774";
 
@@ -720,7 +720,6 @@ export function FloristExperience() {
               title={isNafila ? "" : ""}
               subtitle=""
               radius={620}
-              autoRotateSpeed={0.02}
               onAddToCart={(item) => {
                 const product =
                   item.originalProduct ||

@@ -2,6 +2,10 @@
 @config "../tailwind.config.ts";
 
 @theme {
+  --font-montserrat: var(--font-montserrat), 'Montserrat', sans-serif;
+  --font-caveat: var(--font-caveat), 'Caveat', cursive;
+  --shadow-brutal: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-brutal-hover: 2px 2px 0px 0px rgba(0, 0, 0, 1);
   --font-display: var(--font-playfair), Georgia, serif;
   --font-cormorant: var(--font-cormorant), Georgia, serif;
   --font-dmserif: var(--font-dm-serif), Georgia, serif;
@@ -278,3 +282,95 @@ body {
   box-shadow: 0 0 0 1px var(--accent);
   cursor: grab;
 }
+
+/* ============================================================
+   Plivin Digital Gift Design Tokens & Typography
+   ============================================================ */
+:root {
+  --shadow-brutal: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-brutal-hover: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.plivin-root {
+  --font-sans: var(--font-montserrat), 'Montserrat', sans-serif;
+  font-family: var(--font-montserrat), 'Montserrat', sans-serif !important;
+}
+
+.plivin-root,
+.plivin-root .font-sans,
+.plivin-root [class*="font-sans"],
+.plivin-root h1,
+.plivin-root h2,
+.plivin-root h3,
+.plivin-root h4,
+.plivin-root h5,
+.plivin-root h6,
+.plivin-root p,
+.plivin-root a,
+.plivin-root button,
+.plivin-root input,
+.plivin-root select,
+.plivin-root textarea,
+.plivin-root label {
+  font-family: var(--font-montserrat), 'Montserrat', sans-serif;
+}
+
+.plivin-root .font-handwritten {
+  font-family: var(--font-caveat), 'Caveat', cursive, serif !important;
+}
+
+.plivin-root .font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+}
+
+.plivin-root .font-serif {
+  font-family: var(--font-playfair), Georgia, serif !important;
+}
+
+/* ---- Base Autofill override ---- */
+.plivin-root input:-webkit-autofill,
+.plivin-root textarea:-webkit-autofill,
+.plivin-root select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  -webkit-text-fill-color: black !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ---- Toast slide-up animation ---- */
+@keyframes slideUpToast {
+  from {
+    transform: translateY(120%) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slideUpToast 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* ---- Card hover micro-animation ---- */
+.card-brutal {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-brutal:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+}
+
+/* ---- Accordion transition ---- */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.accordion-content.open {
+  max-height: 1000px;
+}
+
+

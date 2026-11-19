@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <radialGradient id="flowerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fbcfe8" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#db2777" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="roseWrap" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdf4ff"/>
+      <stop offset="50%" stop-color="#f5d0fe"/>
+      <stop offset="100%" stop-color="#e879f9"/>
+    </linearGradient>
+    <filter id="bouquetShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#701a75" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <circle cx="60" cy="58" r="48" fill="url(#flowerGlow)"/>
+
+  <g filter="url(#bouquetShadow)">
+    <!-- Kraft/Silk Wrapping Paper Cone -->
+    <polygon points="34,60 86,60 66,104 54,104" fill="url(#roseWrap)"/>
+    <!-- Wrapping Fold Layer -->
+    <polygon points="42,60 86,60 62,98 52,98" fill="#f0abfc" opacity="0.6"/>
+
+    <!-- Green Leaves -->
+    <ellipse cx="40" cy="48" rx="10" ry="6" transform="rotate(-30 40 48)" fill="#22c55e"/>
+    <ellipse cx="80" cy="48" rx="10" ry="6" transform="rotate(30 80 48)" fill="#16a34a"/>
+    <ellipse cx="60" cy="38" rx="8" ry="12" fill="#15803d"/>
+
+    <!-- Roses / Flowers -->
+    <!-- Left Rose (Pink) -->
+    <circle cx="46" cy="50" r="13" fill="#f43f5e"/>
+    <circle cx="46" cy="50" r="8" fill="#fda4af"/>
+    <circle cx="46" cy="50" r="4" fill="#e11d48"/>
+
+    <!-- Right Rose (Peach) -->
+    <circle cx="74" cy="50" r="13" fill="#fb7185"/>
+    <circle cx="74" cy="50" r="8" fill="#fecdd3"/>
+    <circle cx="74" cy="50" r="4" fill="#be123c"/>
+
+    <!-- Center Dominant Rose (Red Crimson) -->
+    <circle cx="60" cy="44" r="16" fill="#e11d48"/>
+    <circle cx="60" cy="44" r="10" fill="#f43f5e"/>
+    <circle cx="60" cy="44" r="5" fill="#881337"/>
+
+    <!-- Ribbon Tie -->
+    <path d="M 54 84 Q 60 82 66 84 Q 60 87 54 84 Z" fill="#ec4899"/>
+    <circle cx="60" cy="84" r="4" fill="#be185d"/>
+    <path d="M 58 86 L 52 98 M 62 86 L 68 98" stroke="#be185d" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

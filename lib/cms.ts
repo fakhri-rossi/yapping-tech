@@ -4,7 +4,7 @@ import type {
   CmsSettings,
   NicheConfig,
   NicheId,
-} from "@/types/landing";
+} from "@type/landing";
 
 export const CMS_STORAGE_KEY = "yapping_cms_niches_v1";
 export const CMS_PLAN_STORAGE_KEY = "yapping_cms_client_plan_v1";

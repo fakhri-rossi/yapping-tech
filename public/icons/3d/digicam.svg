@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <radialGradient id="camGlow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#fda4af" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#e11d48" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbcfe8"/>
+      <stop offset="35%" stop-color="#f472b6"/>
+      <stop offset="70%" stop-color="#ec4899"/>
+      <stop offset="100%" stop-color="#be185d"/>
+    </linearGradient>
+    <linearGradient id="silverTrim" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="45%" stop-color="#e2e8f0"/>
+      <stop offset="55%" stop-color="#94a3b8"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
+    </linearGradient>
+    <radialGradient id="lensGrad" cx="42%" cy="40%" r="58%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="25%" stop-color="#0284c7"/>
+      <stop offset="60%" stop-color="#0f172a"/>
+      <stop offset="85%" stop-color="#020617"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </radialGradient>
+    <radialGradient id="flashGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#fef08a"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </radialGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#831843" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Glow -->
+  <circle cx="60" cy="62" r="48" fill="url(#camGlow)"/>
+
+  <!-- Camera Body -->
+  <g filter="url(#softShadow)">
+    <rect x="18" y="34" width="84" height="58" rx="16" fill="url(#bodyGrad)"/>
+    <rect x="18" y="34" width="84" height="12" rx="6" fill="url(#silverTrim)"/>
+    <!-- Viewfinder bump -->
+    <rect x="36" y="27" width="22" height="9" rx="3" fill="url(#silverTrim)"/>
+    <!-- Shutter Button -->
+    <rect x="74" y="26" width="16" height="8" rx="4" fill="url(#silverTrim)"/>
+    <!-- Flash Unit -->
+    <rect x="25" y="40" width="14" height="10" rx="3" fill="#1e293b"/>
+    <rect x="27" y="42" width="10" height="6" rx="2" fill="url(#flashGrad)"/>
+    <!-- Lens Outer Ring (Silver) -->
+    <circle cx="62" cy="63" r="24" fill="url(#silverTrim)"/>
+    <circle cx="62" cy="63" r="21" fill="#0f172a"/>
+    <!-- Lens Element -->
+    <circle cx="62" cy="63" r="17" fill="url(#lensGrad)"/>
+    <!-- Lens Reflection -->
+    <ellipse cx="57" cy="58" rx="7" ry="4" transform="rotate(-30 57 58)" fill="#ffffff" opacity="0.6"/>
+    <circle cx="68" cy="69" r="2.5" fill="#38bdf8" opacity="0.8"/>
+    <!-- Y2K Star Sparkle -->
+    <path d="M 86 42 Q 88 47 93 49 Q 88 51 86 56 Q 84 51 79 49 Q 84 47 86 42 Z" fill="#fef08a"/>
+    <circle cx="86" cy="49" r="1.5" fill="#ffffff"/>
+  </g>
+</svg>

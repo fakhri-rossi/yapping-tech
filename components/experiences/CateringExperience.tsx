@@ -3,11 +3,11 @@
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useShowcase } from "@/context/ShowcaseContext";
-import { FaqAccordion } from "@/components/FaqAccordion";
-import { SiteFooter } from "@/components/SiteFooter";
-import { Magnetic } from "@/components/ui/Magnetic";
-import { cn, formatIDR, formatPax } from "@/lib/format";
+import { useShowcase } from "@context/ShowcaseContext";
+import { FaqAccordion } from "@components/templates/FaqAccordion";
+import { SiteFooter } from "@components/templates/SiteFooter";
+import { Magnetic } from "@components/ui/Magnetic";
+import { cn, formatIDR, formatPax } from "@lib/format";
 
 const GLOW_PHONE = "6281999888790";
 

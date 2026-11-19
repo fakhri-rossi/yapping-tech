@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { NICHE_MAP } from "@/config/niches";
-import { getManagementSystemTitle } from "@/lib/cms";
-import { ShowcaseProvider } from "@/context/ShowcaseContext";
-import { CmsWorkspace } from "@/components/cms/CmsWorkspace";
-import type { NicheId } from "@/types/landing";
+import { NICHE_MAP } from "@config/niches";
+import { getManagementSystemTitle } from "@lib/cms";
+import { ShowcaseProvider } from "@context/ShowcaseContext";
+import { CmsWorkspace } from "@components/cms/CmsWorkspace";
+import type { NicheId } from "@type/landing";
 
 interface PageProps {
   searchParams?: Promise<{

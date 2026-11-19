@@ -12,6 +12,12 @@ export const KOMOSE_DOMAINS = new Set<string>([
   "komose.localhost:3000",
 ]);
 
+export const PLIVIN_DOMAINS = new Set<string>([
+  "plivin.co",
+  "www.plivin.co",
+  "plivin.localhost:3000",
+]);
+
 export const CLIENT_DOMAINS: Record<string, string> = {
   // Contoh Domain Asli Klien:
   // "rotienak.com": "patisserie",
@@ -59,6 +65,25 @@ export function middleware(req: NextRequest) {
   // tampilkan landing page Komose di '/' dan biarkan /templates serta /cms tetap bisa diakses.
   if (KOMOSE_DOMAINS.has(hostname) && url.pathname === "/") {
     return NextResponse.rewrite(new URL("/komose", req.url));
+  }
+
+  // Jika diakses lewat domain Plivin (plivin.co / www.plivin.co / plivin.localhost:3000),
+  // tampilkan landing page Plivin di '/' dan routing subpath seperti /gift, /katalog, /demo
+  if (PLIVIN_DOMAINS.has(hostname)) {
+    if (url.pathname === "/") {
+      return NextResponse.rewrite(new URL("/plivin", req.url));
+    }
+    if (url.pathname === "/gift" || url.pathname === "/katalog" || url.pathname === "/kado") {
+      return NextResponse.rewrite(new URL("/plivin/gift", req.url));
+    }
+    if (url.pathname.startsWith("/demo/")) {
+      return NextResponse.rewrite(new URL(`/plivin${url.pathname}`, req.url));
+    }
+  }
+
+  // Global rewrite untuk /demo/[templateId] agar link demo lama atau pendek langsung aktif
+  if (url.pathname.startsWith("/demo/")) {
+    return NextResponse.rewrite(new URL(`/plivin${url.pathname}`, req.url));
   }
 
   // Cek apakah hostname yang diakses terdaftar sebagai custom domain klien

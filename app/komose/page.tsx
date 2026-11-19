@@ -13,14 +13,14 @@ import {
   StoreIcon,
   TrendingUpIcon,
   XIcon,
-} from "@/components/komose/KomoseIcons";
-import { WHATSAPP_NUMBER } from "@/config/niches";
-import { KomoseLogo } from "@/components/komose/KomoseLogo";
-import { KomoseNavbar } from "@/components/komose/KomoseNavbar";
+} from "@components/komose/KomoseIcons";
+import { WHATSAPP_NUMBER } from "@config/niches";
+import { KomoseLogo } from "@components/komose/KomoseLogo";
+import { KomoseNavbar } from "@components/komose/KomoseNavbar";
 import {
   KomoseClientAndTemplatesShowcase,
   KomoseFaqAccordion,
-} from "@/components/komose/KomoseShowcase";
+} from "@components/komose/KomoseShowcase";
 
 export const metadata: Metadata = {
   title: "Komose — Stop Boncos Komisi Aplikasi. Bikin Toko Online Sendiri 0% Potongan",
