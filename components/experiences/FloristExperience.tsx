@@ -681,8 +681,8 @@ export function FloristExperience() {
         </div>
       </section>
 
-      {/* 5. 3D CIRCULAR GALLERY KATALOG SECTION */}
-      <section id="categories" className="relative border-t border-line px-4 sm:px-6 md:px-10 pt-14 pb-20 sm:pt-20 sm:pb-28 bg-canvas overflow-visible">
+      {/* 5. KATALOG SECTION (Smooth 2D Swipeable Showcase) */}
+      <section id="categories" className="relative border-t border-line px-4 sm:px-6 md:px-10 pt-14 pb-16 sm:pt-20 sm:pb-24 bg-canvas overflow-hidden">
         {/* Subtle decorative background blur glow */}
         <div className="pointer-events-none absolute -top-24 left-1/2 h-[380px] w-[600px] -translate-x-1/2 rounded-full bg-[var(--accent)]/10 blur-[120px]" />
 
@@ -697,25 +697,25 @@ export function FloristExperience() {
                   height={14}
                   className="object-contain inline-block"
                 />
-                <span>Katalog 3D Berputar · Sentuh &amp; Putar</span>
+                <span>Katalog Buket Spesial · Geser &amp; Pilih</span>
               </div>
               <h2 className="mt-2.5 font-heading text-[clamp(2rem,4vw,3.4rem)] leading-[1.04] text-ink">
-                {isNafila ? "Pilih Model Buket Impianmu." : "Katalog Rangkaian 3D Interaktif."}
+                {isNafila ? "Pilih Model Buket Impianmu." : "Katalog Rangkaian Spesial."}
               </h2>
               <p className="mt-2 font-body text-[13px] sm:text-[13.5px] text-muted">
                 {isNafila
-                  ? "Geser kartu atau gunakan tombol panah di bawah untuk memutar katalog 3D. Langsung klik keranjang atau pesan via WA!"
-                  : "Sentuh, geser (drag) atau scroll untuk memutar katalog melingkar 3D dan temukan buket impianmu."}
+                  ? "Geser ke samping untuk melihat koleksi buket pilihan. Langsung klik keranjang atau pesan via WA!"
+                  : "Geser ke samping untuk menjelajahi katalog rangkaian bunga dan temukan pilihan favoritmu."}
               </p>
             </div>
 
             <div className="hidden sm:flex items-center gap-2 font-ui text-[10px] text-muted uppercase tracking-[0.16em]">
-              <span>Geser Kartu Untuk Memutar</span>
+              <span>Geser Untuk Melihat Koleksi Lainnya</span>
             </div>
           </div>
 
-          {/* Circular 3D Gallery View */}
-          <div className="mt-8 relative">
+          {/* Clean 2D Swipeable Gallery View */}
+          <div className="mt-8 relative w-full overflow-hidden">
             <CircularGallery
               title={isNafila ? "" : ""}
               subtitle=""
