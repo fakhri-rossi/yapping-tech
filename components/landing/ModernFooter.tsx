@@ -58,9 +58,9 @@ export function ModernFooter({
           </a>
         </nav>
 
-        {/* Center: Social Icons Row (X, LinkedIn, Facebook, Threads, Instagram, TikTok, YouTube) */}
+        {/* Social Icons Row (Hidden sementara sampai akun sosmed resmi tersedia) */}
+        {/*
         <div className="mt-6 sm:mt-8 flex items-center justify-center gap-4 sm:gap-5 text-stone-900">
-          {/* X (Twitter) */}
           <a
             href="https://x.com"
             target="_blank"
@@ -73,7 +73,6 @@ export function ModernFooter({
             </svg>
           </a>
 
-          {/* LinkedIn */}
           <a
             href="https://linkedin.com"
             target="_blank"
@@ -86,7 +85,6 @@ export function ModernFooter({
             </svg>
           </a>
 
-          {/* Facebook */}
           <a
             href="https://facebook.com"
             target="_blank"
@@ -99,7 +97,6 @@ export function ModernFooter({
             </svg>
           </a>
 
-          {/* Threads */}
           <a
             href="https://threads.net"
             target="_blank"
@@ -112,7 +109,6 @@ export function ModernFooter({
             </svg>
           </a>
 
-          {/* Instagram */}
           <a
             href="https://instagram.com"
             target="_blank"
@@ -125,7 +121,6 @@ export function ModernFooter({
             </svg>
           </a>
 
-          {/* TikTok */}
           <a
             href="https://tiktok.com"
             target="_blank"
@@ -138,7 +133,6 @@ export function ModernFooter({
             </svg>
           </a>
 
-          {/* YouTube */}
           <a
             href="https://youtube.com"
             target="_blank"
@@ -151,6 +145,7 @@ export function ModernFooter({
             </svg>
           </a>
         </div>
+        */}
       </div>
 
       {/* Elegant Diagonal Hatch Strip Pattern Divider (Persis seperti gambar referensi) */}
